@@ -8,10 +8,10 @@ import adafruit_mcp4725
 i2c = busio.I2C(board.SCL, board.SDA)
 
 # Inicializa el BNO055
-i2c_bno = adafruit_bno055.BNO055(i2c, 0x28)
+i2c_bno = adafruit_bno055.BNO055(i2c(1))
 
 # Inicializa el MCP4725
-i2c_dac = adafruit_mcp4725.MCP4725(i2c, 0x60)
+i2c_dac = adafruit_mcp4725.MCP4725(i2c(2))
 
 while True:
     # Lee la orientación del BNO055
