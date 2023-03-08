@@ -5,7 +5,11 @@ import adafruit_bno055
 import adafruit_mcp4725
 
 # Inicializa el bus I2C
-i2c = board.I2C()
+i2c = busio.I2C(board.SCL, board.SDA)
 
+# Inicializa el BNO055 en la dirección 0x28
+bno = adafruit_bno055.BNO055(i2c, address=0x28)
 
-print(i2c)
+# Inicializa el MCP4725 en la dirección 0x60
+dac = adafruit_mcp4725.MCP4725(i2c, address=0x60)
+
