@@ -29,7 +29,7 @@ target = 0.0
 
 # Configurar el cliente MQTT
 client = mqtt.Client()
-client.connect("ip_del_servidor_MQTT", 1883, 60)
+client.connect("test.mosquitto.org", 1883, 60)
 
 # Definir el tema MQTT
 topic = "Control"
