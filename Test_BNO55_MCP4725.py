@@ -11,17 +11,17 @@ i2c = busio.I2C(board.SCL, board.SDA)
 bno = adafruit_bno055.BNO055_I2C(i2c, address=0x28)
 
 # Inicializa el MCP4725 en la dirección 0x60
-dac = adafruit_mcp4725.MCP4725(i2c, address=0x61)
+dac = adafruit_mcp4725.MCP4725(i2c, address=0x60)
 
 while True:
     # Lee la orientación del BNO055
     orientacion = bno.euler
 
     # Convierte la orientación a un valor de voltaje para el MCP4725
-    voltaje = orientacion[0] / 360 * 3.3
+    #voltaje = orientacion[0] / 360 * 3.3
 
     # Convierte el voltaje a un valor de 12 bits para el MCP4725
-    valor = int(voltaje / 3.3 * 4095)
+    valor = int(40 / 3.3 * 4095)
 
     # Escribe el valor en el MCP4725
     dac.value = valor
