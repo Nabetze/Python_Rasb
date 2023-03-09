@@ -4,6 +4,7 @@ import busio
 import adafruit_bno055
 import adafruit_mcp4725
 import paho.mqtt.client as mqtt
+import json
 
 # Inicializa el bus I2C
 i2c = busio.I2C(board.SCL, board.SDA)
@@ -61,7 +62,7 @@ while True:
 
     # Enviar los datos a Node-RED
     payload = {"error": error, "output": u}
-    client.publish(topic, payload=str(payload))
+    client.publish(topic, json.dumps(payload))
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
     time.sleep(0.1)
