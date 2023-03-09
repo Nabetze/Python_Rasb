@@ -65,4 +65,4 @@ while True:
     client.publish(topic, json.dumps(payload))
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
-    time.sleep(0.1)
+    time.sleep(0.05)
