@@ -13,8 +13,8 @@ bno = adafruit_bno055.BNO055_I2C(i2c, address=0x28)
 # Inicializa el MCP4725 en la dirección 0x60
 dac = adafruit_mcp4725.MCP4725(i2c, address=0x60)
 
-float limite = 30  #[kPA], máxima presion en el regulador electronico.
-float u = 0        #[kPa], valor inicial de la ley de control.
+limite = 30.0  #[kPA], máxima presion en el regulador electronico.
+u = 0.0        #[kPa], valor inicial de la ley de control.
 
 while True:
     # Lee la orientación del BNO055
