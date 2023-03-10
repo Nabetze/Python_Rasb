@@ -64,5 +64,7 @@ while True:
     payload = {"error": error, "output": u}
     client.publish(topic, json.dumps(payload))
 
+    print("Error: {:.2f} degrees, Presion: {:.2f} kPa".format(error, u))
+
     # Espera un segundo antes de volver a leer la orientación del BNO055
     time.sleep(0.05)
