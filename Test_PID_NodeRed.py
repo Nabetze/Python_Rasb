@@ -40,7 +40,7 @@ while True:
     orientacion = bno.euler
 
     # Convierte la orientación a un valor de error para el controlador PID
-    error = target - orientacion[1]
+    error = target - orientacion[2]
 
     # Calcula los términos proporcional, integral y derivativo del controlador PID
     proporcional = kp * error
