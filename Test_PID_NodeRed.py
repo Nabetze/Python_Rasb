@@ -26,7 +26,7 @@ prev_error = 0.0
 integral = 0.0
 
 # Configura el valor objetivo del controlador PID
-target = 0.0
+target = 40.0
 
 # Configurar el cliente MQTT
 client = mqtt.Client()
@@ -40,12 +40,12 @@ while True:
     orientacion = bno.euler
 
     # Convierte la orientación a un valor de error para el controlador PID
-    error = target - orientacion[0]
+    error = target - orientacion[1]
 
     # Calcula los términos proporcional, integral y derivativo del controlador PID
     proporcional = kp * error
     integral += ki * error
-    derivativo = kd * (error - prev_error) / 0.1
+    derivativo = kd * (error - prev_error) / 0.05
     prev_error = error
 
     # Calcula el valor de salida del controlador PID
