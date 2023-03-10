@@ -6,7 +6,7 @@ import adafruit_bno055
 i2c = busio.I2C(board.SCL, board.SDA)
 
 # Inicializar el sensor BNO055
-sensor = adafruit_bno055.BNO055(i2c)
+sensor = adafruit_bno055.BNO055_I2C(i2c, address=0x28)
 
 # Leer los datos del sensor
 while True:
