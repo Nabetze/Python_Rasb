@@ -23,7 +23,7 @@ while True:
     u = int(input("Ingresar valor de voltaje: "))
 
     # Limita la salida a los límites del regulador electrónico (0-[limite])
-    u = min(max(u, 0), 5)
+    #u = min(max(u, 0), 5)
 
     # Convierte el voltaje a un valor de 12 bits para el MCP4725
     valor = int( u / 5 * 4095)
