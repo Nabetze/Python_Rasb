@@ -29,7 +29,7 @@ while True:
     valor = int( u / 5 * 4095)
 
     # Escribe el valor en el MCP4725
-    dac.value = 4095*2
+    dac.value = 4095*u
 
     #print("Error: {:.2f} degrees, Presion: {:.2f} kPa".format(error, u))
 
