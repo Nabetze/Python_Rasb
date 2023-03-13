@@ -64,7 +64,7 @@ while True:
     dac.value = valor
 
     # Enviar los datos a Node-RED
-    payload = {"error": error, "output": u}
+    payload = {"error": error, "output": u, "referencia": target}
     client.publish(topic, json.dumps(payload))
 
     #print("Error: {:.2f} degrees, Presion: {:.2f} kPa".format(error, u))
