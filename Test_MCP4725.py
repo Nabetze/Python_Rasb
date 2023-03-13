@@ -31,7 +31,7 @@ while True:
     # Escribe el valor en el MCP4725
     dac.value = valor
 
-    #print("Error: {:.2f} degrees, Presion: {:.2f} kPa".format(error, u))
+    print("El voltaje que se envió fue: ".format(valor))
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
 
