@@ -31,7 +31,7 @@ while True:
     # Escribe el valor en el MCP4725
     dac.value = valor
 
-    print("El voltaje que se envió fue: {}".format(valor))
+    print("El voltaje que se envió fue: {}".format(valor*5/65535))
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
 
