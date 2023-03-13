@@ -40,7 +40,7 @@ while True:
     orientacion = bno.euler
 
     # Convierte la orientación a un valor de error para el controlador PID
-    error = target - orientacion[2]
+    error = target - orientacion[1]
 
     # Calcula los términos proporcional, integral y derivativo del controlador PID
     proporcional = kp * error
@@ -64,7 +64,7 @@ while True:
     payload = {"error": error, "output": u}
     client.publish(topic, json.dumps(payload))
 
-    print("Error: {:.2f} degrees, Presion: {:.2f} kPa".format(error, u))
+    #print("Error: {:.2f} degrees, Presion: {:.2f} kPa".format(error, u))
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
     time.sleep(0.05)
