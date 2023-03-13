@@ -26,10 +26,10 @@ while True:
     #u = min(max(u, 0), 5)
 
     # Convierte el voltaje a un valor de 12 bits para el MCP4725
-    valor = int( u / 5 * 4095)
+    valor = int( u / 5 * 65535)
 
     # Escribe el valor en el MCP4725
-    dac.value = 4095*u
+    dac.value = valor
 
     #print("Error: {:.2f} degrees, Presion: {:.2f} kPa".format(error, u))
 
