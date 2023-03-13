@@ -20,7 +20,7 @@ dac = adafruit_mcp4725.MCP4725(i2c, address=0x60)
 while True:
     
     # Calcula el valor de salida del controlador PID
-    u = input("Ingresar valor de voltaje: ")
+    u = int(input("Ingresar valor de voltaje: "))
 
     # Limita la salida a los límites del regulador electrónico (0-[limite])
     u = min(max(u, 0), 5)
