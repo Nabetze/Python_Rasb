@@ -65,7 +65,7 @@ while True:
 
     # Enviar los datos a Node-RED
     #payload = {"angulo": orientacion[1], "output": u, "referencia": target}
-    payload = {"topic": "medido", "payload": orientacion[1]}, {"topic": "referencia", "payload": target}
+    payload = {"topic": "medido", "payload": orientacion[1]}, {"topic": "referencia", "payload": target}, {"topic": "presion", "payload": u}
 
     client.publish(topic, json.dumps(payload))
 
