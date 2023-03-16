@@ -26,10 +26,10 @@ def on_message(client, userdata, message):
 # Configuración del cliente MQTT
 client = mqtt.Client()
 client.on_message = on_message
-client.connect("localhost", 1883, 60)
+client.connect("test.mosquitto.org", 1883, 60)
 
 # Se suscribe al tema "pid/gains"
-client.subscribe("pid/gains")
+client.subscribe("Kp")
 
 # Bucle principal
 while True:
