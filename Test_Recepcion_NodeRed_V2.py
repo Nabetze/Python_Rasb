@@ -10,13 +10,13 @@ Kd = 0.0
 def update_Kp(new_Kp):
     global Kp
     Kp = new_Kp
-    print("New gains: Kd={}".format(Kp))
+    print("New gains: Kp={}".format(Kp))
 
 # Función para actualizar las ganancias del controlador PID
 def update_Ki(new_Ki):
     global Ki
     Ki = new_Ki
-    print("New gains: Kd={}".format(Ki))
+    print("New gains: Ki={}".format(Ki))
 
 # Función para actualizar las ganancias del controlador PID
 def update_Kd(new_Kd):
