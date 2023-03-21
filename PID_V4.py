@@ -112,7 +112,7 @@ client.subscribe("Kd")
 topic = "Control"
 
 # Tiempo inicial:
-t_inicial = time.time
+t_inicial = time.time()
 
 while True:
 
