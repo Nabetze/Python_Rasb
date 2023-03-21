@@ -2,6 +2,7 @@
 # Ademas recibe los valores de Kp, Ki y Kd por node red.
 # Se suscribe y publica.
 # Se calcula el tiempo de ejecucion.
+# Se implemento una referencia trapezoidal.
 
 import time
 import board
@@ -19,7 +20,7 @@ bno = adafruit_bno055.BNO055_I2C(i2c, address=0x28)
 
 # Inicializa el MCP4725 en la dirección 0x60
 dac = adafruit_mcp4725.MCP4725(i2c, address=0x60)
-# Voltaje máximo de entrada:
+# Voltaje máximo de entrada (medido en la Raspberry):
 Vol_rasp = 5.4  #Vol.
 
 
@@ -33,8 +34,30 @@ kd = 0.0
 prev_error = 0.0
 integral = 0.0
 
-# Configura el valor objetivo del controlador PID
-target = 40.0
+# Configuraciones necesarias para la referencia trapezoidal:----------------------------------------
+tsubida = 3    # t2 - t1
+tbajada = 5    # t4 - t3
+testatico = 5  # t3 - t2
+tinicial = 5   # t1
+
+#Duracion total:
+ttotal = tsubida + tbajada + testatico + tinicial
+
+# Obtenemos los puntos de tiempo:
+t1 = tinicial
+t2 = tsubida + t1
+t3 = testatico + t2
+t4 = tbajada + t3
+
+# Valores maximos y minimos de angulo:
+Amin = 10 #[grados]
+Amax = 60 #[grados]
+
+# Variable de referencia:
+target = 0
+
+# Contador de ciclos:
+Num_ciclos = 0
 
 # Función para actualizar las ganancias del controlador PID
 def update_Kp(new_Kp):
@@ -88,13 +111,45 @@ client.subscribe("Kd")
 # Definir el tema MQTT
 topic = "Control"
 
-# Frecuencia de muestreo de 0.1 segundos
-dt = 0.1
-
 
 while True:
 
-    start_time = time.time()
+    t = time.time()
+
+    if t <= t1:
+            
+        target = Amin
+            
+    elif t <= t2:
+            
+        a = (Amax - Amin)/(tsubida)
+            
+        target = a*(t - t2) + Amax
+            
+    elif t <= t3:
+            
+        target = Amax
+            
+    elif t <= t4:
+            
+        c = (Amin - Amax)/(tbajada)
+            
+        target = c*(t - t3) + Amax
+            
+    else:
+            
+        target = Amin
+            
+        # Actualizamos los límites:
+        t1 = t1 + ttotal
+        t2 = t2 + ttotal
+        t3 = t3 + ttotal
+        t4 = t4 + ttotal
+            
+        # Sumamos un ciclo:
+        Num_ciclos = Num_ciclos + 1
+            
+
     # Lee la orientación del BNO055
     orientacion = bno.euler
 
@@ -126,15 +181,6 @@ while True:
     client.loop()
     client.publish(topic, json.dumps(payload))
 
-    #print("Error: {:.2f} degrees, Presion: {:.2f} kPa".format(error, u))
-
-    end_time = time.time()
-    # Tiempo total de ejecución del código de control
-    exec_time = end_time - start_time
-
-    # Frecuencia real de control
-    freq = 1 / (dt + exec_time)
-    print("Frecuencia real: {:.2f} Hz y el tiempo de ejecución fue de: {:.2f}".format(freq, exec_time))
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
     time.sleep(0.05)

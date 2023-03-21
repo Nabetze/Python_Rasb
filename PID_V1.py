@@ -1,3 +1,5 @@
+# Version que solamente envia los datos del PID (No en el formado que se usa para graficar).
+
 import time
 import board
 import busio

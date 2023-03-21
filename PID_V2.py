@@ -1,3 +1,5 @@
+# Version que envia los datos de la manera correcta para graficar en Node Red.
+
 import time
 import board
 import busio
