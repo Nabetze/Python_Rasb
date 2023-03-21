@@ -111,10 +111,12 @@ client.subscribe("Kd")
 # Definir el tema MQTT
 topic = "Control"
 
+# Tiempo inicial:
+t_inicial = time.time
 
 while True:
 
-    t = time.time()
+    t = time.time() - t_inicial #[s]
 
     if t <= t1:
             
