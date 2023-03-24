@@ -11,6 +11,9 @@ import adafruit_bno055
 import adafruit_mcp4725
 import paho.mqtt.client as mqtt
 import json
+import numpy as np
+import skfuzzy as fuzz
+from skfuzzy import control as ctrl
 
 # Inicializa el bus I2C
 i2c = busio.I2C(board.SCL, board.SDA)
@@ -27,11 +30,100 @@ Vol_rasp = 5.4  #Vol.
 limite = 30.0  #[kPA], máxima presion en el regulador electronico.
 u = 0.0        #[kPa], valor inicial de la ley de control.
 
-# Configura las constantes del controlador PID
-kp = 0.2
-ki = 0.0
-kd = 0.0
-prev_error = 0.0
+# Colocar aca el controlador a utilizar: -------------------------------------
+# Configura las constantes del controlador Fuzzy, entradas y salidas:
+error = ctrl.Antecedent(np.arange(-30, 30, 0.01), 'error')
+error['NG'] = fuzz.trapmf(error.universe, [-58.2, -38.22, -29.6, -20.72])
+error['NM'] = fuzz.trimf(error.universe,  [-30, -20, -9.99])
+error['NP'] = fuzz.trimf(error.universe, [-20, -9.99, 0])
+error['Z'] = fuzz.trimf(error.universe, [-9.99, 0, 9.99])
+error['PP'] = fuzz.trimf(error.universe, [0, 9.99, 20])
+error['PM'] = fuzz.trimf(error.universe, [9.99, 20, 30])
+error['PG'] = fuzz.trapmf(error.universe, [21.43, 30, 45.6, 47.4])
+
+derror = ctrl.Antecedent(np.arange(-75, 75, 0.01), 'derror')
+derror['NG'] = fuzz.trapmf(derror.universe,  [-145.5, -95.55, -73.98, -51.81])
+derror['NM'] = fuzz.trimf(derror.universe,   [-75, -49.98, -24.99])
+derror['NP'] = fuzz.trimf(derror.universe,  [-49.98, -24.99, 0])
+derror['Z']  = fuzz.trimf(derror.universe,  [-24.99, 0, 24.99])
+derror['PP'] = fuzz.trimf(derror.universe, [0, 24.99, 50.01])
+derror['PM'] = fuzz.trimf(derror.universe, [24.99, 50.01, 75])
+derror['PG'] = fuzz.trapmf(derror.universe, [53.58, 75, 114, 118.5])
+
+voltaje = ctrl.Consequent(np.arange(0, 10, 0.1), 'voltaje')
+voltaje['NG'] = fuzz.trapmf(voltaje.universe, [-19.4, -12.74, -9.86, -6.90])
+voltaje['NM'] = fuzz.trimf(voltaje.universe, [-10, -6.66, -3.33])
+voltaje['NP'] = fuzz.trimf(voltaje.universe, [-6.66, -3.33, 0])
+voltaje['Z'] = fuzz.trimf(voltaje.universe, [-3.33, 0, 3.33])
+voltaje['PP'] = fuzz.trimf(voltaje.universe, [0, 3.33, 6.66])
+voltaje['PM'] = fuzz.trimf(voltaje.universe, [3.33, 6.66, 10])
+voltaje['PG'] = fuzz.trapmf(voltaje.universe, [7.14, 10, 15.2, 15.8])
+
+# Reglas:
+regla1 = ctrl.Rule(error['NG'] & derror['NG'], voltaje['NG'])
+regla2 = ctrl.Rule(error['NG'] & derror['NM'], voltaje['NG'])
+regla3 = ctrl.Rule(error['NG'] & derror['NP'], voltaje['NG'])
+regla4 = ctrl.Rule(error['NG'] & derror['Z'], voltaje['NG'])
+regla5 = ctrl.Rule(error['NG'] & derror['PP'], voltaje['NM'])
+regla6 = ctrl.Rule(error['NG'] & derror['PM'], voltaje['NP'])
+regla7 = ctrl.Rule(error['NG'] & derror['PG'], voltaje['Z'])
+regla8 = ctrl.Rule(error['NM'] & derror['NG'], voltaje['NG'])
+regla9 = ctrl.Rule(error['NM'] & derror['NM'], voltaje['NG'])
+regla10 = ctrl.Rule(error['NM'] & derror['NP'], voltaje['NG'])
+regla11 = ctrl.Rule(error['NM'] & derror['Z'], voltaje['NM'])
+regla12 = ctrl.Rule(error['NM'] & derror['PP'], voltaje['NP'])
+regla13 = ctrl.Rule(error['NM'] & derror['PM'], voltaje['Z'])
+regla14 = ctrl.Rule(error['NM'] & derror['PG'], voltaje['PP'])
+regla15 = ctrl.Rule(error['NP'] & derror['NG'], voltaje['NG'])
+regla16 = ctrl.Rule(error['NP'] & derror['NM'], voltaje['NG'])
+regla17 = ctrl.Rule(error['NP'] & derror['NP'], voltaje['NM'])
+regla18 = ctrl.Rule(error['NP'] & derror['Z'], voltaje['NP'])
+regla19 = ctrl.Rule(error['NP'] & derror['PP'], voltaje['Z'])
+regla20 = ctrl.Rule(error['NP'] & derror['PM'], voltaje['PP'])
+regla21 = ctrl.Rule(error['NP'] & derror['PG'], voltaje['PM'])
+regla22 = ctrl.Rule(error['Z'] & derror['NG'], voltaje['NG'])
+regla23 = ctrl.Rule(error['Z'] & derror['NM'], voltaje['NM'])
+regla24 = ctrl.Rule(error['Z'] & derror['NP'], voltaje['NP'])
+regla25 = ctrl.Rule(error['Z'] & derror['Z'], voltaje['Z'])
+regla26 = ctrl.Rule(error['Z'] & derror['PP'], voltaje['PP'])
+regla27 = ctrl.Rule(error['Z'] & derror['PM'], voltaje['PM'])
+regla28 = ctrl.Rule(error['Z'] & derror['PG'], voltaje['PG'])
+regla29 = ctrl.Rule(error['PP'] & derror['NG'], voltaje['NM'])
+regla30 = ctrl.Rule(error['PP'] & derror['NM'], voltaje['NP'])
+regla31 = ctrl.Rule(error['PP'] & derror['NP'], voltaje['Z'])
+regla32 = ctrl.Rule(error['PP'] & derror['Z'], voltaje['PP'])
+regla33 = ctrl.Rule(error['PP'] & derror['PP'], voltaje['PM'])
+regla34 = ctrl.Rule(error['PP'] & derror['PM'], voltaje['PG'])
+regla35 = ctrl.Rule(error['PP'] & derror['PG'], voltaje['PG'])
+regla36 = ctrl.Rule(error['PM'] & derror['NG'], voltaje['NP'])
+regla37 = ctrl.Rule(error['PM'] & derror['NM'], voltaje['Z'])
+regla38 = ctrl.Rule(error['PM'] & derror['NP'], voltaje['PP'])
+regla39 = ctrl.Rule(error['PM'] & derror['Z'], voltaje['PM'])
+regla40 = ctrl.Rule(error['PM'] & derror['PP'], voltaje['PG'])
+regla41 = ctrl.Rule(error['PM'] & derror['PM'], voltaje['PG'])
+regla42 = ctrl.Rule(error['PM'] & derror['PG'], voltaje['PG'])
+regla43 = ctrl.Rule(error['PG'] & derror['NG'], voltaje['Z'])
+regla44 = ctrl.Rule(error['PG'] & derror['NM'], voltaje['PP'])
+regla45 = ctrl.Rule(error['PG'] & derror['NP'], voltaje['PM'])
+regla46 = ctrl.Rule(error['PG'] & derror['Z'], voltaje['PG'])
+regla47 = ctrl.Rule(error['PG'] & derror['PP'], voltaje['PG'])
+regla48 = ctrl.Rule(error['PG'] & derror['PM'], voltaje['PG'])
+regla49 = ctrl.Rule(error['PG'] & derror['PG'], voltaje['PG'])
+
+# Agregamos las reglas:
+controlador = ctrl.ControlSystem([regla1, regla2, regla3, regla4, regla5, regla6, regla7, regla8, regla9
+                                , regla10, regla11, regla12, regla13, regla14, regla15, regla16, regla17, regla18, regla19
+                                , regla20, regla21, regla22, regla23, regla24, regla25, regla26, regla27, regla28, regla29
+                                , regla30, regla31, regla32, regla33, regla34, regla35, regla36, regla37, regla38, regla39
+                                , regla40, regla41, regla42, regla43, regla44, regla45, regla46, regla47, regla48, regla49])
+
+# Creamos una simulacion:
+simulacion = ctrl.ControlSystemSimulation(controlador)
+
+# Variable del error:
+error_medido_anterior = 0
+
+# Creamos una variable integral:
 integral = 0.0
 
 # Configuraciones necesarias para la referencia trapezoidal:----------------------------------------
@@ -113,6 +205,7 @@ topic = "Control"
 
 # Tiempo inicial:
 t_inicial = time.time()
+t_anterior = time.time() - t_inicial
 
 while True:
 
@@ -156,16 +249,24 @@ while True:
     orientacion = bno.euler
 
     # Convierte la orientación a un valor de error para el controlador PID
-    error = target - orientacion[1]
+    error_medido = target - orientacion[1]
 
-    # Calcula los términos proporcional, integral y derivativo del controlador PID
-    proporcional = kp * error
-    integral += ki * error
-    derivativo = kd * (error - prev_error) / 0.05
-    prev_error = error
+    # Calculamos la derivada del error:
+    derror_medido_ = (error_medido - error_medido_anterior)/(t - t_anterior)
+    t_anterior = t
+    
+    # Actualiza los valores de entrada del controlador difuso
+    controlador.input['error'] = error_medido
+    controlador.input['derror'] = derror_medido_
+    
+    # Evalúa la salida del controlador difuso
+    controlador.compute()
+    
+    # Obtiene la salida del controlador difuso
+    voltaje_regulador = controlador.output['voltaje']
 
     # Calcula el valor de salida del controlador PID [kPa]
-    u = proporcional + integral + derivativo
+    u += voltaje_regulador
 
     # Limita la salida a los límites del regulador electrónico (0-[limite])
     u = min(max(u, 0), limite)
