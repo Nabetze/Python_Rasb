@@ -1,3 +1,5 @@
+# Codigo que recibe los datos de las ganancias de forma independiente de NodeRed y actualiza los valores.
+
 import paho.mqtt.client as mqtt
 import time
 
