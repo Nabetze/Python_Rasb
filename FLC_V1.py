@@ -259,8 +259,8 @@ while True:
     simulacion.input['error'] = min(max(error_medido, 30), -30)
     simulacion.input['derror'] = min(max(derror_medido, 75), -75)
     
-    print('Medido:{:2d} U:{:2d} Error:{:2d} Derror:{:2d}'.format(orientacion, u, error_medido, derror_medido))
-    
+    print('Medido:{:2f} U:{:2f} Error:{:2f} Derror:{:2f}'.format(orientacion, u, error_medido, derror_medido))
+
     # Evalúa la salida del controlador difuso
     simulacion.compute()
     
