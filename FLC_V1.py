@@ -256,7 +256,7 @@ while True:
     t_anterior = t
     
     # Actualiza los valores de entrada del controlador difuso y saturamos:
-    simulacion.input['error'] = min(max(round(error_medido, 2), 30), -30)
+    simulacion.input['error'] = min(max(round(error_medido, 2), -30), 30)
     simulacion.input['derror'] = 19
     
 
