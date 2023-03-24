@@ -255,9 +255,9 @@ while True:
     derror_medido = (error_medido - error_medido_anterior)/(t - t_anterior)
     t_anterior = t
     
-    # Actualiza los valores de entrada del controlador difuso
-    simulacion.input['error'] = error_medido
-    simulacion.input['derror'] = derror_medido
+    # Actualiza los valores de entrada del controlador difuso y saturamos:
+    simulacion.input['error'] = min(max(error_medido, 30), -30)
+    simulacion.input['derror'] = min(max(derror_medido, 75), -75)
     
     # Evalúa la salida del controlador difuso
     simulacion.compute()
