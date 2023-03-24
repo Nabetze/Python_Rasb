@@ -256,14 +256,14 @@ while True:
     t_anterior = t
     
     # Actualiza los valores de entrada del controlador difuso
-    controlador.input['error'] = error_medido
-    controlador.input['derror'] = derror_medido
+    simulacion.input['error'] = error_medido
+    simulacion.input['derror'] = derror_medido
     
     # Evalúa la salida del controlador difuso
-    controlador.compute()
+    simulacion.compute()
     
     # Obtiene la salida del controlador difuso
-    voltaje_regulador = controlador.output['voltaje']
+    voltaje_regulador = simulacion.output['voltaje']
 
     # Calcula el valor de salida del controlador PID [kPa]
     u += voltaje_regulador
