@@ -7,3 +7,5 @@ with open('PI_9.fis', 'r') as f:
 # Acceder a los antecedentes y consecuentes del sistema de control difuso
 antecedents = fuzzy_control.antecedents
 consequents = fuzzy_control.consequents
+
+print(antecedents)
