@@ -283,6 +283,7 @@ while True:
 
     client.loop()
     client.publish(topic, json.dumps(payload))
+    print('Medido:{:2d} U:{:2d} Error:{:2d} Derror:{:2d}'.format(orientacion, u, error_medido, derror_medido))
 
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
