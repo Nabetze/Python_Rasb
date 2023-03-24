@@ -252,12 +252,12 @@ while True:
     error_medido = target - orientacion[1]
 
     # Calculamos la derivada del error:
-    derror_medido_ = (error_medido - error_medido_anterior)/(t - t_anterior)
+    derror_medido = (error_medido - error_medido_anterior)/(t - t_anterior)
     t_anterior = t
     
     # Actualiza los valores de entrada del controlador difuso
     controlador.input['error'] = error_medido
-    controlador.input['derror'] = derror_medido_
+    controlador.input['derror'] = derror_medido
     
     # Evalúa la salida del controlador difuso
     controlador.compute()
