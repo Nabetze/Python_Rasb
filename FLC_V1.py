@@ -256,8 +256,8 @@ while True:
     t_anterior = t
     
     # Actualiza los valores de entrada del controlador difuso y saturamos:
-    simulacion.input['error'] = 6#min(max(error_medido, 30), -30)
-    simulacion.input['derror'] = 17#min(max(derror_medido, 75), -75)
+    simulacion.input['error'] = min(max(error_medido, 30), -30)
+    simulacion.input['derror'] = 19
     
 
     print('Medido:{:2f} U:{:2f} Error:{:2f} Derror:{:2f} dt: {:2f}'.format(orientacion[1], u, error_medido, derror_medido, t - t_anterior))
