@@ -193,7 +193,8 @@ def on_message(client, userdata, message):
 # Configurar el cliente MQTT
 client = mqtt.Client()
 client.on_message = on_message
-client.connect("test.mosquitto.org", 1883, 60)
+client.connect("broker.mqttdashboard.com", 8000, 60)
+#client.connect("test.mosquitto.org", 1883, 60)
 
 # Se suscribe al tema:
 client.subscribe("Ciclos")
