@@ -8,7 +8,8 @@ import board
 import busio
 import adafruit_bno055
 import adafruit_mcp4725
-import paho.mqtt.client as mqtt
+import paho.mqtt.client as paho
+from paho import mqtt
 import json
 import numpy as np
 import skfuzzy as fuzz
@@ -191,10 +192,11 @@ def on_message(client, userdata, message):
 
 
 # Configurar el cliente MQTT
-client = mqtt.Client(client_id="", userdata=None, protocol=mqtt.MQTTv5)
-client.on_message = on_message
+# client_id is the given name of the client
+client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
+
 # enable TLS for secure connection
-#client.tls_set(tls_version=mqtt.ssl.#client.ssl.PROTOCOL_TLS)
+client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
 # set username and password
 client.username_pw_set("NABETZE", "TheZteban935")
 # connect to HiveMQ Cloud on port 8883 (default for MQTT)
