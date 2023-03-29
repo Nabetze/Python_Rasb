@@ -171,8 +171,11 @@ Lim_ciclos = 0
 # Función para actualizar las ganancias del controlador PID
 def update_ciclos(new_Lim_ciclos):
     global Lim_ciclos
+    global Num_ciclos
     Lim_ciclos = new_Lim_ciclos
-    print("Numero de ciclos recibido: Num_ciclos={}".format(Num_ciclos))
+    # Colocamos 0 para que inicie el bucle
+    Num_ciclos = 0
+    print("Numero de ciclos recibido: Num_ciclos={}".format(Lim_ciclos))
 
 
 # Función que se ejecuta cuando se recibe un mensaje MQTT
