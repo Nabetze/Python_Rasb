@@ -318,8 +318,8 @@ while True:
     payload = {"topic": "medido", "payload": orientacion[1]}, {"topic": "referencia", "payload": target}, {"topic": "presion", "payload": u}, {"topic": "ciclos", "payload": Num_ciclos}
 
     client.loop()
+    print(orientacion[1])
     client.publish(topic, json.dumps(payload))
-    print("C envio")
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
     time.sleep(0.05)
