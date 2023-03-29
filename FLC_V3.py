@@ -194,7 +194,7 @@ def on_message(client, userdata, message):
 client = mqtt.Client(client_id="", userdata=None, protocol=mqtt.MQTTv5)
 client.on_message = on_message
 # enable TLS for secure connection
-client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+#client.tls_set(tls_version=mqtt.ssl.#client.ssl.PROTOCOL_TLS)
 # set username and password
 client.username_pw_set("NABETZE", "TheZteban935")
 # connect to HiveMQ Cloud on port 8883 (default for MQTT)
