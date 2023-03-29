@@ -1,8 +1,4 @@
-# Version que envia los datos de manera correcta para graficar en Node-Red.
-# Ademas recibe los valores de Kp, Ki y Kd por node red.
-# Se suscribe y publica.
-# Se calcula el tiempo de ejecucion.
-# Se implemento una referencia trapezoidal.
+# Version que realiza el FLC maso menos, ocurre un error con el imu luego de un rato
 
 import time
 import board
