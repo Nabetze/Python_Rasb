@@ -293,7 +293,7 @@ while True:
         simulacion.input['derror'] = min(max(round(derror_medido, 2), -75), 75)
         
 
-        print('Medido:{:2f} U:{:2f} Error:{:2f} Derror:{:2f} dt: {:2f}'.format(orientacion[1], u, error_medido, derror_medido, t - t_anterior))
+        #print('Medido:{:2f} U:{:2f} Error:{:2f} Derror:{:2f} dt: {:2f}'.format(orientacion[1], u, error_medido, derror_medido, t - t_anterior))
 
         # Evalúa la salida del controlador difuso
         simulacion.compute()
@@ -319,6 +319,7 @@ while True:
 
     client.loop()
     client.publish(topic, json.dumps(payload))
+    print("C envio")
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
     time.sleep(0.05)
