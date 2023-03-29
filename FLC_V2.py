@@ -46,8 +46,8 @@ error['PP'] = fuzz.trimf(error.universe, [lim_inf_e + 3*t_e, lim_inf_e + 4*t_e, 
 error['PM'] = fuzz.trimf(error.universe, [lim_inf_e + 4*t_e, lim_inf_e + 5*t_e, lim_inf_e + 6*t_e])
 error['PG'] = fuzz.trimf(error.universe, [lim_inf_e + 5*t_e, lim_inf_e + 6*t_e, lim_inf_e + 7*t_e])
 
-lim_inf_de = -75
-lim_sup_de = 75
+lim_inf_de = -1000
+lim_sup_de = 1000
 t_de = (lim_sup_de - lim_inf_de)/6 # Porque numero de conjuntos difusos.
 
 derror = ctrl.Antecedent(np.arange(lim_inf_de, lim_sup_de, 0.01), 'derror')
@@ -194,6 +194,10 @@ client.connect("test.mosquitto.org", 1883, 60)
 
 # Se suscribe al tema:
 client.subscribe("Ciclos")
+client.subscribe("tsubida")
+client.subscribe("tbajada")
+client.subscribe("testatico")
+client.subscribe("tinicial")
 
 # Definir el tema MQTT
 topic = "Control"
