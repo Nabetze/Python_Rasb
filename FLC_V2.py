@@ -61,7 +61,7 @@ derror['PG'] = fuzz.trimf(derror.universe, [lim_inf_de + 5*t_de, lim_inf_de + 6*
 
 
 lim_inf_u = 0
-lim_sup_u = 10
+lim_sup_u = 5
 t_u = (lim_sup_u - lim_inf_u)/6 # Porque numero de conjuntos difusos.
 
 voltaje = ctrl.Consequent(np.arange(lim_inf_u, lim_sup_u, 0.1), 'voltaje')
