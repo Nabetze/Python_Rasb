@@ -320,6 +320,7 @@ while True:
 
     client.loop()
     print(orientacion[1])
+    print(valor)
     client.publish(topic, json.dumps(payload))
 
     # Espera un segundo antes de volver a leer la orientación del BNO055
