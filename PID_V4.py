@@ -28,8 +28,8 @@ limite = 30.0  #[kPA], máxima presion en el regulador electronico.
 u = 0.0        #[kPa], valor inicial de la ley de control.
 
 # Configura las constantes del controlador PID
-kp = 0.4
-ki = 0.1
+kp = 0.01
+ki = 0.01
 kd = 0.0
 prev_error = 0.0
 integral = 0.0
@@ -179,6 +179,7 @@ while True:
     # Enviar los datos a Node-RED
     #payload = {"angulo": orientacion[1], "output": u, "referencia": target}
     payload = {"topic": "medido", "payload": orientacion[1]}, {"topic": "referencia", "payload": target}, {"topic": "presion", "payload": u}
+
 
     client.loop()
     client.publish(topic, json.dumps(payload))
