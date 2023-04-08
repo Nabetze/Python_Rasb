@@ -47,7 +47,7 @@ t4 = tbajada + t3
 
 # Valores maximos y minimos de angulo:
 Amin = 5 #[grados]
-Amax = 17 #[grados]
+Amax = 13 #[grados]
 
 # Variable de referencia:
 target = 0
@@ -146,7 +146,6 @@ while True:
             
         # Sumamos un ciclo:
         Num_ciclos = Num_ciclos + 1
-        print(Num_ciclos)
             
 
     # Lee la orientación del BNO055
@@ -170,6 +169,7 @@ while True:
     payload = {"topic": "medido", "payload": orientacion[1]}, {"topic": "referencia", "payload": target}, {"topic": "presion", "payload": u}
 
     print(orientacion[1])
+    print(Num_ciclos)
 
     client.loop()
     client.publish(topic, json.dumps(payload))
