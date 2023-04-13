@@ -1,22 +1,30 @@
 import socket
 import json
 
-HOST = '' # Escucha todas las interfaces de red
-PORT = 8888 # Puerto al que el ESP32 se conecta
+SERVER_IP = "192.168.18.42"  # Coloca la dirección IP de la Raspberry Pi aquí
+SERVER_PORT = 8000  # Coloca el número de puerto utilizado en el ESP32 aquí
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((HOST, PORT))
-s.listen()
+# Crea un objeto socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-print("Esperando conexión...")
-conn, addr = s.accept()
-print("Conectado por", addr)
+# Conecta el socket al servidor
+sock.connect((SERVER_IP, SERVER_PORT))
 
 while True:
-    data = conn.recv(1024)
-    if not data:
-        break
-    json_data = json.loads(data.decode())
+    # Recibe los datos del ángulo desde el ESP32
+    data = sock.recv(1024)
+
+    # Decodifica los datos recibidos
+    decoded_data = data.decode("utf-8")
+
+    # Convierte los datos en un objeto JSON
+    json_data = json.loads(decoded_data)
+
+    # Accede al valor del ángulo en el objeto JSON
     angle = json_data["angle"]
-    print("Ángulo:", angle)
-    
+
+    # Imprime el ángulo recibido
+    print("Ángulo: ", angle)
+
+# Cierra el socket
+sock.close()
