@@ -27,7 +27,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
             
             ax.clear()
-            ax.plot(num, 'r', label='Angulo')
+            ax.plot(10, 'r', label='Angulo')
             ax.set_xlabel('Muestras')
             ax.set_ylabel('Ángulo (grados)')
             ax.set_ylim(-180, 180)  
