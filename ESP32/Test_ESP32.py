@@ -1,8 +1,8 @@
 import socket
 import json
 
-SERVER_IP = "192.168.18.42"  # Coloca la dirección IP de la Raspberry Pi aquí
-SERVER_PORT = 8000  # Coloca el número de puerto utilizado en el ESP32 aquí
+SERVER_IP = '192.168.43.101'  # Coloca la dirección IP de la Raspberry Pi aquí
+SERVER_PORT = 1234  # Coloca el número de puerto utilizado en el ESP32 aquí
 
 # Crea un objeto socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
