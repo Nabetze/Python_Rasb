@@ -32,6 +32,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             ax.set_ylabel('Ángulo (grados)')
             ax.set_ylim(-180, 180)  
 
-            plt.pause(0.1)
+            plt.pause(1)
 
 
