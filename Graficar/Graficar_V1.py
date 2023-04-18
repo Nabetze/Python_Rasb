@@ -10,6 +10,8 @@ PORT = 1234
 
 fig, ax = plt.subplots()    
 
+Angulo = []
+
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
@@ -25,9 +27,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             num = int.from_bytes(data, byteorder='little')
             print(num)
 
-            
+            Angulo.append(num)
+
             ax.clear()
-            ax.plot(10, 'r', label='Angulo')
+            ax.plot(Angulo, 'r', label='Angulo')
             ax.set_xlabel('Muestras')
             ax.set_ylabel('Ángulo (grados)')
             ax.set_ylim(-180, 180)  
