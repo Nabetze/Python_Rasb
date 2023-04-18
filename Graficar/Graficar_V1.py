@@ -2,19 +2,36 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
+
+import socket
+
+HOST = '192.168.43.101'
+PORT = 1234
+
 fig, ax = plt.subplots()    
 
-def update_plot():
-    # Aquí debes poner el código que obtiene los datos que quieres graficar
-    x = np.arange(0, 10, 0.1)
-    y = np.sin(x)
-    # Actualiza el gráfico
-    ax.clear()
-    ax.plot(x, y)
-    # Ajusta los límites de los ejes si es necesario
-    ax.set_xlim(0, 10)
-    ax.set_ylim(-1, 1)
 
-while True:
-    update_plot()
-    plt.pause(0.1)
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
+    print('Esperando conexión...')
+    conn, addr = s.accept()
+    with conn:
+        print('Conexión establecida por', addr)
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                break
+            num = int.from_bytes(data, byteorder='little')
+            print(num)
+
+            
+            ax.clear()
+            ax.plot(num, 'r', label='Angulo')
+            ax.set_xlabel('Muestras')
+            ax.set_ylabel('Ángulo (grados)')
+            ax.set_ylim(-180, 180)  
+
+            plt.pause(0.1)
+
+
