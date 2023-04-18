@@ -1,3 +1,5 @@
+# Este si recibe sin problemas.
+
 import socket
 
 HOST = '192.168.43.101'

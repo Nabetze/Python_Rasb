@@ -1,3 +1,5 @@
+# Este aparece un error cuando se carga.
+
 import socket
 import json
 
