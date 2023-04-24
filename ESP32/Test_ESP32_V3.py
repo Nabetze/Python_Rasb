@@ -1,7 +1,7 @@
 # tESTEANDO SI LLEGA RAPIDO.
 import socket
 
-HOST = '192.168.43.101'  # Cambiar por la dirección IP de la Raspberry Pi
+HOST = '10.100.232.87'  # Cambiar por la dirección IP de la Raspberry Pi
 PORT = 1234
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
