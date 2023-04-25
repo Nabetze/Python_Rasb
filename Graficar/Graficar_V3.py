@@ -1,3 +1,5 @@
+# Si funciona,  grafica sin problemas pero solo e suna grafica, no es interactivo.
+
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import threading
