@@ -27,7 +27,7 @@ def on_message(client, userdata, message):
     if len(ydata) > 50:
         #xdata.pop(0)
         ydata.pop(0)
-        ax.clear()
+        #ax.clear()
     #ax.set_xlim(max(0, len(xdata)-50), len(xdata))  
 
 # Configuración del cliente MQTT
