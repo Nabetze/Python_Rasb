@@ -1,68 +1,55 @@
-import paho.mqtt.client as mqtt
-import tkinter as tk
-import matplotlib.pyplot as plt
+from tkinter import Tk, Frame,Button,Label, ttk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import numpy as np
+import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
+fig, ax = plt.subplots(facecolor='#4F406A')
+plt.title("Grafica en Tkinter con Matplotlib",color='white',size=16, family="Arial")
+
+ax.tick_params(direction='out', length=6, width=2, 
+	colors='white',
+    grid_color='r', grid_alpha=0.5)
 
 
-# Configuración del cliente MQTT
-MQTT_BROKER = "10.100.232.87"
-MQTT_TOPIC = "datos/bno055"
+x = np.arange(-2*np.pi, 2*np.pi, 0.01)
+line, = ax.plot(x, np.sin(x), color='r', marker='o', linestyle='dotted', 
+	linewidth=8, markersize=1, markeredgecolor='m')  #dotted, dashdot,dashed
 
-# Variables para almacenar los datos recibidos
-xdata = []
-ydata = []
+plt.xlim([-2*np.pi, 2*np.pi])
+plt.ylim([-2,2])  #x.min(), x.max()
 
-# Función que se ejecuta cuando se recibe un mensaje MQTT
-def on_message(client, userdata, message):
-    mensaje_decodificado = message.payload.decode("utf-8")
-    angulo = float(mensaje_decodificado)
-    xdata.append(len(xdata))
-    ydata.append(angulo)
-    if len(xdata) > 50:
-        xdata.pop(0)
-        ydata.pop(0)
-    line.set_data(xdata, ydata)
-    ax.relim()
-    ax.autoscale_view()
-    fig.canvas.draw()
 
-# Configuración del cliente MQTT
-mqttClient = mqtt.Client()
-mqttClient.on_message = on_message
-mqttClient.connect(MQTT_BROKER, 1883)
-mqttClient.subscribe(MQTT_TOPIC)
-mqttClient.loop_start()
+def animate(i):
+    line.set_ydata(np.sin(x+ i/40))  
+    return line,
 
-# Función para encender/apagar el sistema
-def toggle_system():
-    global system_on
-    system_on = not system_on
-    if system_on:
-        mqttClient.loop_start()
-    else:
-        mqttClient.loop_stop()
+def iniciar():	
+	global ani
+	ani = animation.FuncAnimation(fig, animate, 
+		interval=20, blit=True, save_count=10)	 
+	canvas.draw()
 
-# Configuración de la GUI
-fig, ax = plt.subplots()
-line, = ax.plot(xdata, ydata, 'r', label='Angulo')
-ax.set_xlabel('Muestras')
-ax.set_ylabel('Ángulo (grados)')
-ax.set_ylim(-90, 90)
-ax.set_xlim(0, 50)
-ax.legend()
+def pausar():
+	ani.event_source.stop() 
 
-system_on = True
+def reanudar():
+	ani.event_source.start()
 
-root = tk.Tk()
-root.geometry("500x300")
+ventana = Tk()
+ventana.geometry('642x535')
+ventana.wm_title('Grafica Matplotlib Animacion')
+ventana.minsize(width=500,height=400)
 
+frame = Frame(ventana,  bg='gray22',bd=3)
+frame.pack(expand=1, fill='both')
 
 canvas = FigureCanvasTkAgg(fig, master = frame)  
 canvas.get_tk_widget().pack(padx=5, pady=5 , expand=1, fill='both') 
 
-button = tk.Button(root, text="Encender/Apagar", command=toggle_system)
-button.pack(side="bottom")
 
-root.mainloop()
+Button(frame, text='Grafica Datos', width = 15, bg='purple4',fg='white', command=iniciar).pack(pady =5,side='left',expand=1)
+Button(frame, text='Pausar', width = 15, bg='salmon',fg='white', command=pausar).pack(pady =5,side='left',expand=1)
+Button(frame, text='Reanudar', width = 15, bg='green',fg='white', command=reanudar).pack(pady =5,side='left',expand=1)
+
+ventana.mainloop()
