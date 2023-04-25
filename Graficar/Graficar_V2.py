@@ -1,3 +1,5 @@
+# Recibe los datos pero el problema es en la gráfica.
+
 import paho.mqtt.client as mqtt
 import matplotlib.pyplot as plt
 import numpy as np
