@@ -1,55 +1,54 @@
-from tkinter import Tk, Frame,Button,Label, ttk
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import tkinter as tk
+import numpy as np
+import paho.mqtt.client as mqtt
 
-fig, ax = plt.subplots(facecolor='#4F406A')
-plt.title("Grafica en Tkinter con Matplotlib",color='white',size=16)
+# Configuración del cliente MQTT
+MQTT_BROKER = "10.100.232.87"
+MQTT_TOPIC = "datos/bno055"
 
-ax.tick_params(direction='out', length=6, width=2, 
-	colors='white',
-    grid_color='r', grid_alpha=0.5)
+# Datos iniciales:
+gData = []
+gData.append([0]) # Eje X
+gData.append([0]) # Eje Y
+
+fig = plt.Figure()
+ax = fig.add_subplot(111)
+
+root = tk.Tk()
+canvas = FigureCanvasTkAgg(fig, master=root)
+canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+# Función que se ejecuta cuando se recibe un mensaje MQTT
+def on_message(client, userdata, message):
+
+    mensaje_decodificado = message.payload.decode("utf-8")
+    global angulo
+    angulo = float(mensaje_decodificado)
+
+    gData[1].append(angulo)
+
+    if len(gData[1]) > 200:
+        gData[1].pop(0)
+
+    ax.clear()
+    ax.plot(gData[1])
+
+    # Actualiza el widget del gráfico
+    canvas.draw()
 
 
-x = np.arange(-2*np.pi, 2*np.pi, 0.01)
-line, = ax.plot(x, np.sin(x), color='r', marker='o', linestyle='dotted', 
-	linewidth=8, markersize=1, markeredgecolor='m')  #dotted, dashdot,dashed
+# Crea un cliente MQTT y se suscribe al tópico correspondiente
+mqttClient = mqtt.Client()
+mqttClient.on_message = on_message
+mqttClient.connect(MQTT_BROKER, 1883)
+mqttClient.subscribe(MQTT_TOPIC)
+mqttClient.loop_start()
 
-plt.xlim([-2*np.pi, 2*np.pi])
-plt.ylim([-2,2])  #x.min(), x.max()
+# Inicia la aplicación de Tkinter
+root.mainloop()
 
-
-def animate(i):
-    line.set_ydata(np.sin(x+ i/40))  
-    return line,
-
-def iniciar():	
-	global ani
-	ani = animation.FuncAnimation(fig, animate, 
-		interval=20, blit=True, save_count=10)	 
-	canvas.draw()
-
-def pausar():
-	ani.event_source.stop() 
-
-def reanudar():
-	ani.event_source.start()
-
-ventana = Tk()
-ventana.geometry('300x400')
-ventana.wm_title('Grafica Matplotlib Animacion')
-ventana.minsize(width=300,height=400)
-
-frame = Frame(ventana, bg='gray22', bd=3, zorder=2)
-frame.pack(expand=1, fill='both')
-
-canvas = FigureCanvasTkAgg(fig, master = frame)  
-canvas.get_tk_widget().place(x=0, y=50, relwidth=1, relheight=0.9)
-canvas.get_tk_widget().pack(padx=5, pady=5 , expand=1, fill='both') 
-
-Button(frame, text='Grafica Datos', width=15, bg='purple4', fg='white', command=iniciar).pack(pady=5, padx=5, side='left')
-Button(frame, text='Pausar', width=15, bg='salmon', fg='white', command=pausar).pack(pady=5, padx=5, side='left')
-Button(frame, text='Reanudar', width=15, bg='green', fg='white', command=reanudar).pack(pady=5, padx=5, side='left')
-
-ventana.mainloop()
+# Detiene el bucle del cliente MQTT cuando se cierra la aplicación
+mqttClient.loop_stop()
+mqttClient.disconnect()
