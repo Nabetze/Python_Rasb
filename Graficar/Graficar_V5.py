@@ -1,6 +1,10 @@
 import paho.mqtt.client as mqtt
 import tkinter as tk
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib.animation as animation
+
+
 
 # Configuración del cliente MQTT
 MQTT_BROKER = "10.100.232.87"
@@ -54,9 +58,9 @@ system_on = True
 root = tk.Tk()
 root.geometry("500x300")
 
-canvas = plt.gcf().canvas
-canvas_widget = canvas.native()
-canvas_widget.pack(side="top", fill="both", expand=True)
+
+canvas = FigureCanvasTkAgg(fig, master = frame)  
+canvas.get_tk_widget().pack(padx=5, pady=5 , expand=1, fill='both') 
 
 button = tk.Button(root, text="Encender/Apagar", command=toggle_system)
 button.pack(side="bottom")
