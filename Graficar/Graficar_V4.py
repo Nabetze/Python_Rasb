@@ -1,8 +1,9 @@
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import paho.mqtt.client as mqtt
 from tkinter import Tk, Frame,Button,Label, ttk
-#from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+#
 import numpy as np
 
 # Datos iniciales:
