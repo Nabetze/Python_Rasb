@@ -1,4 +1,4 @@
-# tESTEANDO SI LLEGA RAPIDO.
+# Este a cada rato tiene un error.
 import socket
 
 HOST = '10.100.232.87'  # Cambiar por la dirección IP de la Raspberry Pi

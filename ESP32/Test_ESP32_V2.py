@@ -1,4 +1,4 @@
-# Este si recibe sin problemas.
+# Este si recibe sin problemas pero a veces recibe datos incorrectos.
 
 import socket
 

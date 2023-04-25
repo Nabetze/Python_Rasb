@@ -1,4 +1,4 @@
-#Test con MQTT
+#Test con MQTT, funciona y recibe muy rapido lo deseado
 
 import paho.mqtt.client as mqtt
 
@@ -11,7 +11,9 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe(MQTT_TOPIC)
 
 def on_message(client, userdata, msg):
-    print("Mensaje recibido en el tema " + msg.topic + ": " + str(msg.payload))
+    # Usamos el .decode() porque el mensaje llega en forma de bytes y lo transformamos a str.
+    mensaje_decodificado = msg.payload.decode()
+    print("Mensaje recibido en el tema " + msg.topic + ": " + mensaje_decodificado)
 
 client = mqtt.Client()
 client.on_connect = on_connect
