@@ -10,7 +10,7 @@ MQTT_TOPIC = "datos/bno055"
 fig, ax = plt.subplots()    
 ax.set_xlabel('Muestras')
 ax.set_ylabel('Ángulo (grados)')
-ax.set_ylim(-180, 180)  
+ax.set_ylim(-90, 90)  
 
 xdata = []
 ydata = []
