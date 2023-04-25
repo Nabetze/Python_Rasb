@@ -7,6 +7,11 @@ MQTT_BROKER = "10.100.232.87"
 MQTT_TOPIC = "datos/bno055"
 
 # Variables para almacenar los datos recibidos
+fig, ax = plt.subplots()    
+ax.set_xlabel('Muestras')
+ax.set_ylabel('Ángulo (grados)')
+ax.set_ylim(-180, 180)  
+
 xdata = []
 ydata = []
 
@@ -19,9 +24,7 @@ def on_message(client, userdata, message):
     if len(xdata) > 100:
         xdata.pop(0)
         ydata.pop(0)
-    plt.clf()
-    plt.plot(xdata, ydata)
-    plt.draw()
+
 
 # Configuración del cliente MQTT
 mqttClient = mqtt.Client()
@@ -39,4 +42,6 @@ plt.ion()
 plt.show()
 
 while True:
+    ax.plot(xdata,ydata, 'r', label='Angulo')
+    ax.clear()
     plt.pause(0.05)
