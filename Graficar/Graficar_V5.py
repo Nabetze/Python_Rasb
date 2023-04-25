@@ -41,7 +41,7 @@ ventana.geometry('300x400')
 ventana.wm_title('Grafica Matplotlib Animacion')
 ventana.minsize(width=300,height=400)
 
-frame = Frame(ventana,  bg='gray22',bd=3)
+frame = Frame(ventana, bg='gray22', bd=3, zorder=2)
 frame.pack(expand=1, fill='both')
 
 canvas = FigureCanvasTkAgg(fig, master = frame)  
