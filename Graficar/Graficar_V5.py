@@ -45,6 +45,7 @@ frame = Frame(ventana,  bg='gray22',bd=3)
 frame.pack(expand=1, fill='both')
 
 canvas = FigureCanvasTkAgg(fig, master = frame)  
+canvas.get_tk_widget().place(x=0, y=50, relwidth=1, relheight=0.9)
 canvas.get_tk_widget().pack(padx=5, pady=5 , expand=1, fill='both') 
 
 
