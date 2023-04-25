@@ -22,12 +22,12 @@ def on_message(client, userdata, message):
     mensaje_decodificado = message.payload.decode("utf-8")
     global angulo
     angulo = float(mensaje_decodificado)
-    xdata.append(len(xdata))
+    #xdata.append(len(xdata))
     ydata.append(angulo)
-    if len(xdata) > 50:
-        xdata.pop(0)
+    if len(ydata) > 50:
+        #xdata.pop(0)
         ydata.pop(0)
-    ax.set_xlim(max(0, len(xdata)-50), len(xdata))  
+    #ax.set_xlim(max(0, len(xdata)-50), len(xdata))  
 
 # Configuración del cliente MQTT
 mqttClient = mqtt.Client()
@@ -38,7 +38,7 @@ mqttClient.loop_start()
 
 
 while True:
-    ax.plot(xdata,ydata, 'r', label='Angulo')
+    ax.plot(ydata, 'r', label='Angulo')
     plt.pause(0.05)
     #ax.clear()
     print(angulo)
