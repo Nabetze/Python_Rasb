@@ -33,15 +33,7 @@ mqttClient.connect(MQTT_BROKER, 1883)
 mqttClient.subscribe(MQTT_TOPIC)
 mqttClient.loop_start()
 
-# Gráfica en tiempo real
-fig = plt.figure()
-plt.title('Ángulo del BNO055')
-plt.xlabel('Muestras')
-plt.ylabel('Ángulo')
-plt.ion()
-plt.show()
 
 while True:
     ax.plot(xdata,ydata, 'r', label='Angulo')
-    ax.clear()
     plt.pause(0.05)
