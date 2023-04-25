@@ -48,9 +48,8 @@ canvas = FigureCanvasTkAgg(fig, master = frame)
 canvas.get_tk_widget().place(x=0, y=50, relwidth=1, relheight=0.9)
 canvas.get_tk_widget().pack(padx=5, pady=5 , expand=1, fill='both') 
 
-
-Button(frame, text='Grafica Datos', width = 15, bg='purple4',fg='white', command=iniciar).pack(pady =5,side='left',expand=1)
-Button(frame, text='Pausar', width = 15, bg='salmon',fg='white', command=pausar).pack(pady =5,side='left',expand=1)
-Button(frame, text='Reanudar', width = 15, bg='green',fg='white', command=reanudar).pack(pady =5,side='left',expand=1)
+Button(frame, text='Grafica Datos', width=15, bg='purple4', fg='white', command=iniciar).pack(pady=5, padx=5, side='left')
+Button(frame, text='Pausar', width=15, bg='salmon', fg='white', command=pausar).pack(pady=5, padx=5, side='left')
+Button(frame, text='Reanudar', width=15, bg='green', fg='white', command=reanudar).pack(pady=5, padx=5, side='left')
 
 ventana.mainloop()
