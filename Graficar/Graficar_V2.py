@@ -27,6 +27,7 @@ def on_message(client, userdata, message):
     if len(ydata) > 50:
         #xdata.pop(0)
         ydata.pop(0)
+        ax.clear()
     #ax.set_xlim(max(0, len(xdata)-50), len(xdata))  
 
 # Configuración del cliente MQTT
@@ -40,5 +41,5 @@ mqttClient.loop_start()
 while True:
     ax.plot(ydata, 'r', label='Angulo')
     plt.pause(0.05)
-    #ax.clear()
+    
     print(angulo)
