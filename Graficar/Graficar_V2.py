@@ -38,4 +38,5 @@ mqttClient.loop_start()
 while True:
     ax.plot(xdata,ydata, 'r', label='Angulo')
     plt.pause(0.05)
+    plt.clear()
     print(angulo)
