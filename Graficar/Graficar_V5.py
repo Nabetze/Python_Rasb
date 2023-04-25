@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 fig, ax = plt.subplots(facecolor='#4F406A')
-plt.title("Grafica en Tkinter con Matplotlib",color='white',size=16, family="Arial")
+plt.title("Grafica en Tkinter con Matplotlib",color='white',size=16)
 
 ax.tick_params(direction='out', length=6, width=2, 
 	colors='white',
@@ -37,9 +37,9 @@ def reanudar():
 	ani.event_source.start()
 
 ventana = Tk()
-ventana.geometry('642x535')
+ventana.geometry('300x400')
 ventana.wm_title('Grafica Matplotlib Animacion')
-ventana.minsize(width=500,height=400)
+ventana.minsize(width=300,height=400)
 
 frame = Frame(ventana,  bg='gray22',bd=3)
 frame.pack(expand=1, fill='both')
