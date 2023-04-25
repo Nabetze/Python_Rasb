@@ -77,9 +77,9 @@ def reanudar():
 
 # De la grafica:
 ventana = Tk()
-ventana.geometry('700x400')
+ventana.geometry('500x400')
 ventana.wm_title('Grafica Matplotlib Animacion')
-ventana.minsize(width=700,height=400)
+ventana.minsize(width=500,height=400)
 
 frame = Frame(ventana,  bg='gray22',bd=3)
 frame.pack(expand=1, fill='both')
