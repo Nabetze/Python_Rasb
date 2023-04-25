@@ -15,6 +15,8 @@ ax.set_ylim(-90, 90)
 xdata = []
 ydata = []
 
+
+
 # Función que se ejecuta cuando se recibe un mensaje MQTT
 def on_message(client, userdata, message):
     mensaje_decodificado = message.payload.decode("utf-8")
@@ -22,10 +24,10 @@ def on_message(client, userdata, message):
     angulo = float(mensaje_decodificado)
     xdata.append(len(xdata))
     ydata.append(angulo)
-    if len(xdata) > 100:
+    if len(xdata) > 50:
         xdata.pop(0)
         ydata.pop(0)
-
+    ax.set_xlim(max(0, len(xdata)-50), len(xdata))  
 
 # Configuración del cliente MQTT
 mqttClient = mqtt.Client()
@@ -38,5 +40,5 @@ mqttClient.loop_start()
 while True:
     ax.plot(xdata,ydata, 'r', label='Angulo')
     plt.pause(0.05)
-    ax.clear()
+    #ax.clear()
     print(angulo)
