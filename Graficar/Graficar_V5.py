@@ -55,7 +55,7 @@ root = tk.Tk()
 root.geometry("500x300")
 
 canvas = plt.gcf().canvas
-canvas_widget = canvas.get_tk_widget()
+canvas_widget = canvas.native()
 canvas_widget.pack(side="top", fill="both", expand=True)
 
 button = tk.Button(root, text="Encender/Apagar", command=toggle_system)
