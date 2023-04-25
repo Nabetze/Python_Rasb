@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import paho.mqtt.client as mqtt
 from tkinter import Tk, Frame,Button,Label, ttk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
 
 # Datos iniciales:
@@ -15,13 +16,13 @@ MQTT_BROKER = "10.100.232.87"
 MQTT_TOPIC = "datos/bno055"
 
 #Configuramos la gráfica
-fig = plt.figure()
-ax = fig.add_subplot(111)
+#fig = plt.figure()
+fig, ax = plt.subplots(facecolor='#4F406A')
 
 # Variables para almacenar los datos recibidos 
 hl, = plt.plot(gData[0], gData[1])
 
-plt.title("Grafica de angulo tiempo real",color='white',size=16, family="Arial")
+plt.title("Grafica de angulo tiempo real") #,color='white',size=16, family="Arial"
 ax.set_xlabel('Muestras')
 ax.set_ylabel('Ángulo (grados)')
 ax.set_ylim(-90, 90)  
