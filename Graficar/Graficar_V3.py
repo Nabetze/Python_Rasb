@@ -14,7 +14,7 @@ gData.append([0]) # Eje Y
 
 
 # Configuración del cliente MQTT
-MQTT_BROKER = "10.100.232.87"
+MQTT_BROKER = "10.100.236.192"
 MQTT_TOPIC = "datos/bno055"
 
 #Configuramos la gráfica
