@@ -1,10 +1,11 @@
-import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import threading
 import paho.mqtt.client as mqtt
-import matplotlib.pyplot as plt
+import tkinter
+from matplotlib.backends.backend_tkagg import (
+    FigureCanvasTkAgg, NavigationToolbar2Tk)
+from matplotlib.backend_bases import key_press_handler
+from matplotlib import pyplot as plt, animation
 import numpy as np
-import tkinter as tk
 
 # Datos iniciales:
 gData = []
