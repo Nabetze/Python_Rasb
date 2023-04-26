@@ -1,6 +1,6 @@
 import matplotlib
 matplotlib.use("TkAgg")
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #, NavigationToolbar2TkAgg
 
 from matplotlib.figure import Figure
 import matplotlib.animation as animation
@@ -120,8 +120,8 @@ class BTCe_Page(tk.Frame):
         canvas.show()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
-        toolbar = NavigationToolbar2TkAgg(canvas, self)
-        toolbar.update()
+        #toolbar = NavigationToolbar2TkAgg(canvas, self)
+        #toolbar.update()
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
 
