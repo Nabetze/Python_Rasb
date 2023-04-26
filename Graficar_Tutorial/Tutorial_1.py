@@ -119,8 +119,6 @@ class BTCe_Page(tk.Frame):
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
 
-
-
 # Función que se ejecuta cuando se recibe un mensaje MQTT
 def on_message(client, userdata, message):
 
