@@ -16,6 +16,8 @@ class SeaofBTCapp(tk.Tk):
 
         self.frames = {}
 
+
+
         frame = StartPage(container, self)
 
         self.frames[StartPage] = frame
@@ -29,6 +31,10 @@ class SeaofBTCapp(tk.Tk):
         frame = self.frames[cont]
         frame.tkraise()
 
+
+def qf(quickPrint):
+    print(quickPrint)
+
         
 class StartPage(tk.Frame):
 
@@ -37,6 +43,9 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Start Page", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
 
+        button = tk.Button(self, text="Visit Page 1",
+                            command=lambda: qf("Check me out, I'm passing vars!"))
+        button.pack()
 
 app = SeaofBTCapp()
 app.mainloop()
