@@ -1,6 +1,6 @@
 import matplotlib
 matplotlib.use("TkAgg")
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #, NavigationToolbar2TkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 
 from matplotlib.figure import Figure
 import matplotlib.animation as animation
@@ -44,7 +44,7 @@ class SeaofBTCapp(tk.Tk):
         
         tk.Tk.__init__(self, *args, **kwargs)
 
-        #tk.Tk.iconbitmap(self, default="clienticon.ico")
+        tk.Tk.iconbitmap(self, default="clienticon.ico")
         tk.Tk.wm_title(self, "Sea of BTC client")
         
         
@@ -120,9 +120,7 @@ class BTCe_Page(tk.Frame):
         canvas.show()
         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
-        #toolbar = NavigationToolbar2TkAgg(canvas, self)
-        #toolbar.update()
-        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
 
 
 # Función que se ejecuta cuando se recibe un mensaje MQTT
