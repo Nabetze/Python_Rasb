@@ -137,5 +137,5 @@ mqttClient.subscribe(MQTT_TOPIC)
 mqttClient.loop_start()
 
 app = SeaofBTCapp()
-ani = animation.FuncAnimation(f, animate, interval=1000)
+ani = animation.FuncAnimation(f, animate, interval=100)
 app.mainloop()
