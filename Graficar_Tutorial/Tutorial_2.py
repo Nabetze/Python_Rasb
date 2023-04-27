@@ -4,6 +4,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import matplotlib.animation as animation
 from matplotlib import style
+import matplotlib.pyplot as plt
+
 
 import tkinter as tk
 from tkinter import ttk
@@ -27,7 +29,7 @@ style.use("ggplot")
 f = Figure(figsize=(10,6), dpi=100)
 a = f.add_subplot(111)
 
-hl, = matplotlib.plot(gData[0], gData[1])
+hl, = plt.plot(gData[0], gData[1])
 
 class SeaofBTCapp(tk.Tk):
 
