@@ -1,3 +1,5 @@
+# Funciona pero no es fluido.
+
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg

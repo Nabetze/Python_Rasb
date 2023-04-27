@@ -1,3 +1,6 @@
+# Funciona pero hay modificaciones con el V1 pero no se nota la diferencia.
+# El proboema es que no es fluido.
+
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
