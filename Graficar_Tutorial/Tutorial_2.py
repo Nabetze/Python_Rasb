@@ -130,7 +130,7 @@ def animate(num, h, data):
 
     #a.clear()
 
-    #a.plot(data[1])
+    a.plot(data[1])
 
     return h,
 
