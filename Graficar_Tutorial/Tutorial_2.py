@@ -120,7 +120,7 @@ def on_message(client, userdata, message):
     angulo = float(mensaje_decodificado)
     gData[1].append(angulo)
 
-    if len(gData[1]) > 200:
+    if len(gData[1]) > 20:
         gData[1].pop(0)
 
 def animate(num, h, data):
