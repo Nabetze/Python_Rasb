@@ -23,7 +23,7 @@ def on_message(client, userdata, message):
     angulo = float(mensaje_decodificado)
     gData = np.append(gData, angulo)
 
-    if len(gData) > 200:
+    if len(gData) > 20:
         gData = np.delete(gData, 0)
 
     df = pd.DataFrame(data = gData)
