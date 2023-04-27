@@ -17,6 +17,8 @@ gData = np.array([])
 # Función que se ejecuta cuando se recibe un mensaje MQTT
 def on_message(client, userdata, message):
 
+    global gData
+
     mensaje_decodificado = message.payload.decode("utf-8")
     angulo = float(mensaje_decodificado)
     gData = np.append(gData, angulo)
