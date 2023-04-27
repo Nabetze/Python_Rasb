@@ -11,6 +11,7 @@ MQTT_BROKER = "10.100.236.192"
 MQTT_TOPIC = "datos/bno055"
 
 # Datos iniciales:
+global gData
 gData = np.array([])
 
 # Función que se ejecuta cuando se recibe un mensaje MQTT
