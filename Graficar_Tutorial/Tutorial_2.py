@@ -128,9 +128,9 @@ def animate(num, h, data):
     h.set_data(range(len(data[1])), data[1])
     
 
-    a.clear()
+    #a.clear()
 
-    a.plot(data[1])
+    #a.plot(data[1])
 
     return h,
 
