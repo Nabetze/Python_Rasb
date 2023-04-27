@@ -130,7 +130,7 @@ def animate(num, h, data):
 
     #a.clear()
 
-    a.plot(data[1])
+    
 
     return h,
 
@@ -145,4 +145,5 @@ app = SeaofBTCapp()
 #ani = animation.FuncAnimation(f, animate, interval=50)
 ani = animation.FuncAnimation(f, animate, fargs=(hl, gData),
 interval=50, blit=False)
+a.plot(gData[1])
 app.mainloop()
