@@ -125,7 +125,7 @@ def on_message(client, userdata, message):
 
 def animate(num, h, data):
 
-    h.set_data(range(len(data[1])), data[1])
+    h.set_data(range(len(data[1])), gData[1])
     
 
     #a.clear()
@@ -146,5 +146,3 @@ app = SeaofBTCapp()
 ani = animation.FuncAnimation(f, animate, fargs=(hl, gData),
 interval=50, blit=False)
 app.mainloop()
-
-plt.show()
