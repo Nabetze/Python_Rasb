@@ -123,16 +123,16 @@ def on_message(client, userdata, message):
     if len(gData[1]) > 200:
         gData[1].pop(0)
 
-def animate(h, data):
+def animate(num, h, data):
 
-    hl.set_data(range(len(data[1])), data[1])
+    h.set_data(range(len(data[1])), data[1])
     
 
     a.clear()
 
     a.plot(data[1])
 
-    return hl,
+    return h,
 
 # Configuración del cliente MQTT
 mqttClient = mqtt.Client()
