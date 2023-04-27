@@ -3,7 +3,7 @@
 # Librerias del MQTT:
 import paho.mqtt.client as mqtt
 import numpy as np
-#import pandas as pd
+import pandas as pd
 
 
 # Configuración del cliente MQTT
@@ -26,10 +26,10 @@ def on_message(client, userdata, message):
     if len(gData) > 200:
         gData = np.delete(gData, 0)
 
-    #df = pd.DataFrame(data = gData)
+    df = pd.DataFrame(data = gData)
 
     # Guardar el DataFrame en un archivo CSV
-    #df.to_csv('Test.csv', index=False)
+    df.to_csv('Test.csv', index=False)
 
     print(angulo)
 
