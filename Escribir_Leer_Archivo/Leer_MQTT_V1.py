@@ -25,7 +25,7 @@ def animate(i):
 
 
     # lee el archivo CSV y crea un DataFrame
-    dataframe = pd.read_csv('/home/pi/Documents/Esteban_Rasp/Python_Rasb/Escribir_Leer_Archivo/Archivo.csv')
+    dataframe = pd.read_csv('Test.csv')#'/home/pi/Documents/Esteban_Rasp/Python_Rasb/Escribir_Leer_Archivo/Archivo.csv')
 
     # convierte el DataFrame a un array de NumPy
     array = dataframe.to_numpy()
