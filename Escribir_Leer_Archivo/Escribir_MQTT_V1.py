@@ -28,6 +28,8 @@ def on_message(client, userdata, message):
     # Guardar el DataFrame en un archivo CSV
     df.to_csv('Test.csv', index=False)
 
+    print(angulo)
+
 
 # Configuración del cliente MQTT
 mqttClient = mqtt.Client()
