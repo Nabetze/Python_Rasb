@@ -36,4 +36,4 @@ mqttClient = mqtt.Client()
 mqttClient.on_message = on_message
 mqttClient.connect(MQTT_BROKER, 1883)
 mqttClient.subscribe(MQTT_TOPIC)
-mqttClient.loop_start()
+mqttClient.loop_forever()
