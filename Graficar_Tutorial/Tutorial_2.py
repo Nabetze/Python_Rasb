@@ -144,5 +144,5 @@ mqttClient.loop_start()
 app = SeaofBTCapp()
 #ani = animation.FuncAnimation(f, animate, interval=50)
 ani = animation.FuncAnimation(f, animate, fargs=(hl, gData),
-interval=50, blit=False)
+interval=50, blit=False, frames=30)
 app.mainloop()
