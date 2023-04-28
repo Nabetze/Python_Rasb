@@ -23,7 +23,8 @@ data = deque(maxlen=100)  # Almacenará hasta los últimos 100 valores
 # Función que se llama cuando se recibe un mensaje MQTT
 def on_message(client, userdata, message):
     # Agrega el valor del ángulo a la lista de datos
-    data.append(float(message.payload.decode()))
+    data.append(float(message.payload.decode("utf-8")))
+
 
 # Función que se llama para actualizar la gráfica
 def update_graph(frame):
