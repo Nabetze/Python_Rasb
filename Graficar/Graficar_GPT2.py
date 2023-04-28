@@ -3,6 +3,7 @@ import paho.mqtt.client as mqtt
 from collections import deque
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # Configuración del cliente MQTT
 MQTT_SERVER = "10.100.236.192"
@@ -48,7 +49,7 @@ data = deque(maxlen=100) # Almacenará hasta los últimos 100 valores
 ani = FuncAnimation(fig, update_graph, interval=100)
 
 # Inicia la ventana de la GUI
-canvas = plt.FigureCanvasTkAgg(fig, master=root)
+canvas = FigureCanvasTkAgg(fig, master=root)
 canvas.draw()
 canvas.get_tk_widget().pack()
 
