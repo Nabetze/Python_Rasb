@@ -6,9 +6,9 @@ from collections import deque
 import matplotlib.animation as animation
 
 # Configuración del cliente MQTT
-MQTT_SERVER = "broker.hivemq.com"
+MQTT_SERVER = "10.100.236.192"
 MQTT_PORT = 1883
-MQTT_TOPIC = "test/topic"
+MQTT_TOPIC = "datos/bno055"
 
 # Configuración de la ventana de GUI
 root = tk.Tk()
