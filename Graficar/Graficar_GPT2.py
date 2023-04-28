@@ -1,6 +1,6 @@
 import tkinter as tk
 import paho.mqtt.client as mqtt
-from collections import deque
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -30,7 +30,7 @@ def on_message(client, userdata, message):
 # Función que se llama para actualizar la gráfica
 def update_graph(frame):
     # Actualiza los datos de la gráfica con los datos almacenados
-    line.set_data(list(range(len(data))), data)
+    line.set_data(times, data)
     ax.relim()
     ax.autoscale_view(True,True,True)
     return line,
@@ -42,8 +42,9 @@ mqtt_client.subscribe(MQTT_TOPIC)
 mqtt_client.on_message = on_message
 mqtt_client.loop_start()
 
-# Estructura de datos para almacenar los valores del ángulo
-data = deque(maxlen=100) # Almacenará hasta los últimos 100 valores
+# Estructura de datos para almacenar los valores del ángulo y del tiempo
+data = []
+times = []
 
 # Crea una animación para actualizar la gráfica cada 100 milisegundos
 ani = FuncAnimation(fig, update_graph, interval=100)
@@ -55,7 +56,18 @@ canvas.get_tk_widget().pack()
 
 # Función principal de la GUI
 def main():
-    root.mainloop()
+    # Loop principal de la GUI
+    while True:
+        root.update()
+        # Si hay datos en la lista, actualiza el tiempo y agrega los valores a la gráfica
+        if data:
+            times = np.arange(len(data)) / 10.0
+            line.set_data(times, data)
+            ax.relim()
+            ax.autoscale_view(True,True,True)
+            canvas.draw()
+        # Espera un tiempo antes de volver a actualizar la gráfica
+        root.after(100)
 
 if __name__ == '__main__':
     main()
