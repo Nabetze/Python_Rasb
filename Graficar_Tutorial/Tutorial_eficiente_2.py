@@ -4,6 +4,7 @@
 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from matplotlib.gridspec import GridSpec
 import threading
 import paho.mqtt.client as mqtt
 import matplotlib.pyplot as plt
@@ -24,7 +25,8 @@ MQTT_TOPIC = "datos/bno055"
 
 #Configuramos la gráfica
 fig = plt.figure()
-ax = fig.add_subplot(111)
+gs = GridSpec(2, 2, figure=fig)
+ax = fig.add_subplot(gs[0, :])
 
 # Variables para almacenar los datos recibidos 
 line, = plt.plot(gData[0], gData[1])
@@ -89,7 +91,7 @@ def toggle_animation(event):
     stop = not stop
 
 # Agregamos un botón para iniciar o apagar:
-button_ax = plt.axes([0.7, 0.05, 0.2, 0.075])
+button_ax = fig.add_subplot(gs[1, 0])
 toggle_button = Button(button_ax, 'Start/Stop')
 toggle_button.on_clicked(toggle_animation)
 
@@ -102,7 +104,7 @@ def on_submit(text):
     print(f"Valor ingresado: {valor}")
 
 # Crear un cuadro de texto en la posición (0.1, 0.9) de la figura
-cuadro_texto = TextBox(ax, "Ingresar", initial="0")
+cuadro_texto = TextBox(fig.add_subplot(gs[1, 1]), "Ingresar", initial="0")
 
 # Asociar la función on_submit al evento "submit" del cuadro de texto
 cuadro_texto.on_submit(on_submit)
