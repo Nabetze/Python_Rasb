@@ -1,4 +1,4 @@
-# Si funciona,  grafica sin problemas pero solo e suna grafica, no es interactivo.
+# Si funciona, grafica a una buena velocidad sin problemas.
 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -6,6 +6,7 @@ import threading
 import paho.mqtt.client as mqtt
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.widgets import Button
 
 # Datos iniciales:
 gData = []
@@ -53,8 +54,11 @@ def on_message(client, userdata, message):
 # Se llama periódicamente desde el 'FuncAnimation'
 def update_line(frame, line, data):
 
-    line.set_data(range(len(data[1])), data[1])
+    global stop
 
+    if not stop:
+        line.set_data(range(len(data[1])), data[1])
+    
     # rescale = False
 
     # # Si no llegamos al límite inferior reducimos el límite.
@@ -74,6 +78,16 @@ def update_line(frame, line, data):
 
     return line,
 
+# Creamos un botón para detener o iniciar la animación
+stop = False
+def toggle_animation(event):
+    global stop
+    stop = not stop
+
+# Agregamos un botón para iniciar o apagar:
+button_ax = plt.axes([0.7, 0.05, 0.2, 0.075])
+toggle_button = Button(button_ax, 'Start/Stop')
+toggle_button.on_clicked(toggle_animation)
 
 # Configuración del cliente MQTT
 mqttClient = mqtt.Client()
