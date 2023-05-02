@@ -31,7 +31,7 @@ MQTT_TOPIC = "datos/bno055"
 
 #Configuramos la gráfica
 fig = plt.figure()
-gs = GridSpec(4, 2, figure=fig)
+gs = GridSpec(4, 2, figure=fig, width_ratios=[1, 4])
 
 axth = plt.subplot(gs[0, 1])
 axu  = plt.subplot(gs[1, 1])
