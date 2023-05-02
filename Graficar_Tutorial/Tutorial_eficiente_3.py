@@ -106,8 +106,8 @@ def update_line(frame, lineth, lineu, datath, datau):
     global angulo
 
     if stop:
-        lineth.set_data(range(len(datath)), datath)
-        lineu.set_data(range(len(datau)), datau)
+        lineth.set_data(range(len(datath[1])), datath)
+        lineu.set_data(range(len(datau[1])), datau)
     
         t = time.time() - t_inicial #[s]
 
@@ -176,7 +176,7 @@ def update_line(frame, lineth, lineu, datath, datau):
             datath[1].pop(0)
             datau.pop(0)
     
-    return lineth, lineu
+    return lineth, lineu, datath, datau
 
 # Creamos un botón para detener o iniciar la animación
 stop = False
