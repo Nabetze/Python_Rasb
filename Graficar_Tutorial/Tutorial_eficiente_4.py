@@ -35,12 +35,13 @@ gs = GridSpec(4, 2, figure=fig, width_ratios=[1, 4])
 
 axth = plt.subplot(gs[0:2, 1])
 axu  = plt.subplot(gs[2:4, 1])
+plt.grid(True)
 
 
 # Variables para almacenar los datos recibidos 
-line_th, = axth.plot(gData[0], gData[1])
-line_t, = axth.plot(gData[0], t_m)
-line_u, = axu.plot(gData[0], u_m)
+line_th, = axth.plot(gData[0], gData[1], linewidth=2)
+line_t, = axth.plot(gData[0], t_m, linewidth=2)
+line_u, = axu.plot(gData[0], u_m, linewidth=2)
 
 
 axth.set_xlabel('Muestras')
@@ -278,7 +279,7 @@ def Lim_Ciclos_submit(text):
     print(f"Valor ingresado: {Lim_ciclos}")
 
 # Crear un cuadro de texto en la posición (0.1, 0.9) de la figura
-cuadro_texto_Lim_Ciclos = TextBox(fig.add_subplot(gs[1, 0]), "Ingresar Num Ciclos", initial="0")
+cuadro_texto_Lim_Ciclos = TextBox(fig.add_subplot(gs[1, 0]), "Num Ciclos", initial="0")
 
 # Asociar la función on_submit al evento "submit" del cuadro de texto
 cuadro_texto_Lim_Ciclos.on_submit(Lim_Ciclos_submit)
