@@ -30,7 +30,7 @@ MQTT_BROKER = "10.100.239.29" #"192.168.18.42"
 MQTT_TOPIC = "datos/bno055"
 
 #Configuramos la gráfica
-fig = plt.figure()
+fig = plt.figure(figsize=(5.11, 2.75))
 gs = GridSpec(4, 2, figure=fig, width_ratios=[1, 4])
 
 axth = plt.subplot(gs[0:2, 1])
