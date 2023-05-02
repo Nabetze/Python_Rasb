@@ -1,4 +1,4 @@
-# Si funciona,  grafica sin problemas pero solo e suna grafica, no es interactivo.
+# No grafica nada, cuidado con el eje X que sale del margen.
 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
