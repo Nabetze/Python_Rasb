@@ -104,7 +104,7 @@ def on_message(client, userdata, message):
 def update_line(frame, lineth, lineu):
 
     global stop, u, error, prev_error, integral, derivativo, target
-    global t1, t2, t3, t4, t_inicial, tsubida, tbajada, ttotal
+    global t1, t2, t3, t4, t_inicial, t_anterior, tsubida, tbajada, ttotal
     global Amin, Amax, Num_ciclos
     global angulo
     global gData, u_m
@@ -135,10 +135,6 @@ def update_line(frame, lineth, lineu):
         t3 = testatico + t2
         t4 = tbajada + t3
 
-        # Actualizamos el t_inicial y reseteamos los otros tiempos: 
-        t_inicial = time.time()
-        t_anterior = time.time() - t_inicial
-
         # Almacenamos los datos
         gData[1].append(angulo)
         gData[0].append(frame)
@@ -149,6 +145,10 @@ def update_line(frame, lineth, lineu):
 
             gData[1].pop(0)
             u_m.pop(0)
+
+        # Actualizamos el t_inicial y reseteamos los otros tiempos: 
+        t_inicial = time.time()
+        t_anterior = time.time() - t_inicial
 
     elif stop:
         lineth.set_data(range(len(gData[1])), gData[1])
@@ -267,6 +267,8 @@ mqttClient.loop_start()
 
 # Tiempo inicial:
 t_inicial = time.time()
+t_anterior = time.time() - t_inicial
+
 # Configuramos la función que "animará" nuestra gráfica
 line_ani = animation.FuncAnimation(fig, update_line, fargs=(line_th, line_u),
 interval=50, blit=True)
