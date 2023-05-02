@@ -151,7 +151,6 @@ def update_line(frame, lineth, lineu):
         t_anterior = time.time() - t_inicial
 
     elif stop:
-        print("Segundo bucle")
         lineth.set_data(range(len(gData[1])), gData[1])
         lineu.set_data(range(len(gData[1])), u_m)
 
@@ -248,8 +247,13 @@ toggle_button.on_clicked(toggle_animation)
 # Función que se llama cuando se presiona la tecla "Enter" en el cuadro de texto
 def on_submit(text):
     # Convertir el valor ingresado a un número de punto flotante
-    global Lim_ciclos
+    global Lim_ciclos, Num_ciclos
+
+    # Guardamos lo que recibimos
     Lim_ciclos = float(text)
+
+    # Colocamos 0 para que inicie el bucle
+    Num_ciclos = 0
 
     # Hacer algo con el valor ingresado, por ejemplo imprimirlo en la consola
     print(f"Valor ingresado: {Lim_ciclos}")
