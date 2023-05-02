@@ -111,6 +111,10 @@ def update_line(frame, lineth, lineu):
 
     # Paramos el sistema si es que el número de ciclos llegó al límite o si es que se puso stop:
     if Num_ciclos == -1 or not(stop):
+
+        # Graficamos lo que tenemos
+        lineth.set_data(range(len(gData[1])), gData[1])
+        lineu.set_data(range(len(gData[1])), u_m)
     
         # Volvemos la referencia 0.
         target = 0
@@ -134,6 +138,17 @@ def update_line(frame, lineth, lineu):
         # Actualizamos el t_inicial y reseteamos los otros tiempos: 
         t_inicial = time.time()
         t_anterior = time.time() - t_inicial
+
+        # Almacenamos los datos
+        gData[1].append(angulo)
+        gData[0].append(frame)
+        u_m.append(target)
+
+
+        if len(gData[1]) > 200:
+
+            gData[1].pop(0)
+            u_m.pop(0)
 
     elif stop:
         lineth.set_data(range(len(gData[1])), gData[1])
@@ -235,7 +250,7 @@ def on_submit(text):
     Lim_ciclos = float(text)
 
     # Hacer algo con el valor ingresado, por ejemplo imprimirlo en la consola
-    print(f"Valor ingresado: {Num_ciclos}")
+    print(f"Valor ingresado: {Lim_ciclos}")
 
 # Crear un cuadro de texto en la posición (0.1, 0.9) de la figura
 cuadro_texto = TextBox(fig.add_subplot(gs[1, 1]), "Ingresar Num Ciclos", initial="0")
