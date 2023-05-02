@@ -45,12 +45,12 @@ line_u, = axu.plot(gData[0], u_m)
 
 axth.set_xlabel('Muestras')
 axth.set_ylabel('Ángulo (grados)')
-axth.set_ylim(0, 90)  
+axth.set_ylim(-5, 90)  
 axth.set_xlim(0, 400)
 
 axu.set_xlabel('Muestras')
 axu.set_ylabel('Presion (kPa)')
-axu.set_ylim(0, 20)  
+axu.set_ylim(-5, 20)  
 axu.set_xlim(0, 400)
 
 # Voltaje máximo de entrada (medido en la Raspberry):
