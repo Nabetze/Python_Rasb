@@ -148,13 +148,15 @@ def update_line(frame, lineth, lineu, linet):
         # Almacenamos los datos
         gData[1].append(angulo)
         gData[0].append(frame)
-        u_m.append(target)
+        t_m.append(target)
+        u_m.append(u)
 
 
         if len(gData[1]) > 200:
 
             gData[1].pop(0)
-            u_m.pop(0)
+            t_m.pop(0)
+            u_m(0)
 
         # Actualizamos el t_inicial y reseteamos los otros tiempos: 
         t_inicial = time.time()
