@@ -19,6 +19,7 @@ gData.append([0]) # Eje X
 gData.append([0]) # Eje Y
 muestra = -1      # Numero de muestra
 u_m = []    # Vector de U.
+u_m.append([0])
 
 # Configuración del cliente MQTT
 MQTT_BROKER = "10.100.239.29" #"192.168.18.42" 
