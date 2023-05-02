@@ -107,7 +107,7 @@ def update_line(frame, lineth, lineu, datath, datau):
 
     if stop:
         lineth.set_data(range(len(datath[1])), datath)
-        lineu.set_data(range(len(datau[1])), datau)
+        lineu.set_data(range(len(datath[1])), datau)
     
         t = time.time() - t_inicial #[s]
 
