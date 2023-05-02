@@ -198,13 +198,14 @@ toggle_button.on_clicked(toggle_animation)
 # Función que se llama cuando se presiona la tecla "Enter" en el cuadro de texto
 def on_submit(text):
     # Convertir el valor ingresado a un número de punto flotante
-    valor = float(text)
+    global Num_ciclos
+    Num_ciclos = float(text)
 
     # Hacer algo con el valor ingresado, por ejemplo imprimirlo en la consola
-    print(f"Valor ingresado: {valor}")
+    print(f"Valor ingresado: {Num_ciclos}")
 
 # Crear un cuadro de texto en la posición (0.1, 0.9) de la figura
-cuadro_texto = TextBox(fig.add_subplot(gs[1, 1]), "Ingresar", initial="0")
+cuadro_texto = TextBox(fig.add_subplot(gs[1, 1]), "Ingresar Num Ciclos", initial="0")
 
 # Asociar la función on_submit al evento "submit" del cuadro de texto
 cuadro_texto.on_submit(on_submit)
