@@ -30,13 +30,15 @@ MQTT_BROKER = "10.100.239.29" #"192.168.18.42"
 MQTT_TOPIC = "datos/bno055"
 
 #Configuramos la gráfica
-fig, (axth, axu) = plt.subplots(nrows=2, ncols=1, figsize=(8, 8), gridspec_kw={"height_ratios": [1, 4]})
-gs = GridSpec(4, 2, figure=fig, width_ratios=[1, 4], height_ratios=[1, 1, 1, 1], wspace=0.1, hspace=0.5)
+fig, (axth, axu) = plt.subplots(nrows=2, ncols=1)
+gs = GridSpec(4, 2, figure=fig)
 
 
 # Variables para almacenar los datos recibidos 
 line_th, = axth.plot(gData[0], gData[1])
+line_t, = axth.plot(gData[0], t_m)
 line_u, = axu.plot(gData[0], u_m)
+
 
 axth.set_xlabel('Muestras')
 axth.set_ylabel('Ángulo (grados)')
@@ -105,19 +107,20 @@ def on_message(client, userdata, message):
 
 # Función que actualizará los datos de la gráfica
 # Se llama periódicamente desde el 'FuncAnimation'
-def update_line(frame, lineth, lineu):
+def update_line(frame, lineth, lineu, linet):
 
     global stop, u, error, prev_error, integral, derivativo, target
     global t1, t2, t3, t4, t_inicial, t_anterior, tsubida, tbajada, ttotal
     global Amin, Amax, Num_ciclos
     global angulo
-    global gData, u_m
+    global gData, u_m, t_m
 
     # Paramos el sistema si es que el número de ciclos llegó al límite o si es que se puso stop:
     if Num_ciclos == -1 or not(stop):
 
         # Graficamos lo que tenemos
         lineth.set_data(range(len(gData[1])), gData[1])
+        linet.set_data(range(len(gData[1])), t_m)
         lineu.set_data(range(len(gData[1])), u_m)
     
         # Volvemos la referencia 0.
@@ -156,6 +159,7 @@ def update_line(frame, lineth, lineu):
 
     elif stop:
         lineth.set_data(range(len(gData[1])), gData[1])
+        linet.set_data(range(len(gData[1])), t_m)
         lineu.set_data(range(len(gData[1])), u_m)
 
     
@@ -223,18 +227,19 @@ def update_line(frame, lineth, lineu):
         # Almacenamos los datos
         gData[1].append(angulo)
         gData[0].append(frame)
-        u_m.append(target)
+        t_m.append(target)
+        u_m.append(u)
 
 
         if len(gData[1]) > 200:
 
             gData[1].pop(0)
+            t_m.pop(0)
             u_m.pop(0)
 
-        
 
     
-    return lineth, lineu
+    return lineth, lineu, linet
 
 # Creamos un botón para detener o iniciar la animación
 stop = False
@@ -315,7 +320,7 @@ t_inicial = time.time()
 t_anterior = time.time() - t_inicial
 
 # Configuramos la función que "animará" nuestra gráfica
-line_ani = animation.FuncAnimation(fig, update_line, fargs=(line_th, line_u),
+line_ani = animation.FuncAnimation(fig, update_line, fargs=(line_th, line_u, line_t),
 interval=50, blit=True)
 
 # ---------------
