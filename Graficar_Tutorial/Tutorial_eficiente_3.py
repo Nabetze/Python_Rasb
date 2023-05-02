@@ -107,7 +107,7 @@ def update_line(frame, lineth, lineu):
     global gData, u_m
 
     if stop:
-        lineth.set_data(range(len(gData[1])), u_m)
+        lineth.set_data(range(len(gData[1])), gData[1])
         lineu.set_data(range(len(gData[1])), u_m)
 
     
@@ -179,8 +179,6 @@ def update_line(frame, lineth, lineu):
             gData[1].pop(0)
             u_m.pop(0)
 
-        print(gData)
-        print(u_m)
 
     
     return lineth, lineu
