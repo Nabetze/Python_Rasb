@@ -227,6 +227,7 @@ def update_line(frame, lineth, lineu):
             gData[1].pop(0)
             u_m.pop(0)
 
+        print(target)
 
     
     return lineth, lineu
