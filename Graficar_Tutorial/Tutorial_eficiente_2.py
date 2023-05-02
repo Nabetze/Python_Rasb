@@ -35,24 +35,25 @@ def on_message(client, userdata, message):
 
     mensaje_decodificado = message.payload.decode("utf-8")
 
-    global muestra
-    muestra += 1
-    gData[0].append(muestra)
-
     angulo = float(mensaje_decodificado)
     gData[1].append(angulo)
+
+    # global muestra
+    # muestra += 1
+    # gData[0].append(muestra)
+
 
     if len(gData[1]) > 200:
 
         gData[1].pop(0)
-        gData[0].pop(0)
+        # gData[0].pop(0)
 
 
 # Función que actualizará los datos de la gráfica
 # Se llama periódicamente desde el 'FuncAnimation'
 def update_line(frame, line, data):
 
-    line.set_data(data[0], data[1])
+    line.set_data(range(len(data[1])), data[1])
 
     # rescale = False
 
