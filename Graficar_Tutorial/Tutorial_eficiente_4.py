@@ -33,8 +33,8 @@ MQTT_TOPIC = "datos/bno055"
 fig = plt.figure()
 gs = GridSpec(4, 2, figure=fig, width_ratios=[1, 4])
 
-axth = plt.subplot(gs[0, 1])
-axu  = plt.subplot(gs[1, 1])
+axth = plt.subplot(gs[0:2, 1])
+axu  = plt.subplot(gs[2:4, 1])
 
 
 # Variables para almacenar los datos recibidos 
@@ -156,7 +156,7 @@ def update_line(frame, lineth, lineu, linet):
 
             gData[1].pop(0)
             t_m.pop(0)
-            u_m(0)
+            u_m.pop(0)
 
         # Actualizamos el t_inicial y reseteamos los otros tiempos: 
         t_inicial = time.time()
