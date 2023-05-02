@@ -151,6 +151,7 @@ def update_line(frame, lineth, lineu):
         t_anterior = time.time() - t_inicial
 
     elif stop:
+        print("Segundo bucle")
         lineth.set_data(range(len(gData[1])), gData[1])
         lineu.set_data(range(len(gData[1])), u_m)
 
@@ -227,7 +228,7 @@ def update_line(frame, lineth, lineu):
             gData[1].pop(0)
             u_m.pop(0)
 
-        print(target)
+        
 
     
     return lineth, lineu
