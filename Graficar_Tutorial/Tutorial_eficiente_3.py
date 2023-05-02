@@ -103,6 +103,7 @@ def update_line(frame, lineth, lineu, datath, datau):
     global stop, u, error, prev_error, integral, derivativo, target
     global t1, t2, t3, t4, t_inicial, tsubida, tbajada, ttotal
     global Amin, Amax, Num_ciclos
+    global angulo
 
     if stop:
         lineth.set_data(range(len(datath)), datath)
@@ -145,7 +146,7 @@ def update_line(frame, lineth, lineu, datath, datau):
                 
 
         # Lee la orientación del BNO055
-        orientacion = datath
+        orientacion = angulo
 
         # Convierte la orientación a un valor de error para el controlador PID
         error = target - orientacion
