@@ -34,20 +34,21 @@ ax.set_xlim(0, 200)
 # Función que se ejecuta cuando se recibe un mensaje MQTT
 def on_message(client, userdata, message):
 
-    mensaje_decodificado = message.payload.decode("utf-8")
+    if stop:    # Vemos si es que está prendido el sistema, si no no almacenamos.
+        mensaje_decodificado = message.payload.decode("utf-8")
 
-    angulo = float(mensaje_decodificado)
-    gData[1].append(angulo)
+        angulo = float(mensaje_decodificado)
+        gData[1].append(angulo)
 
-    # global muestra
-    # muestra += 1
-    # gData[0].append(muestra)
+        # global muestra
+        # muestra += 1
+        # gData[0].append(muestra)
 
 
-    if len(gData[1]) > 200:
+        if len(gData[1]) > 200:
 
-        gData[1].pop(0)
-        # gData[0].pop(0)
+            gData[1].pop(0)
+            # gData[0].pop(0)
 
 
 # Función que actualizará los datos de la gráfica
@@ -56,7 +57,7 @@ def update_line(frame, line, data):
 
     global stop
 
-    if not stop:
+    if stop:
         line.set_data(range(len(data[1])), data[1])
     
     # rescale = False
