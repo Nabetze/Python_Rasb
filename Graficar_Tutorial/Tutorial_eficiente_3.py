@@ -75,7 +75,10 @@ Amax = 60 #[grados]
 target = 0
 
 # Contador de ciclos:
-Num_ciclos = 0
+Num_ciclos = -1
+
+# Limite de cilcos:
+Lim_ciclos = 0
 
 # Angulo
 angulo = 0
@@ -106,7 +109,33 @@ def update_line(frame, lineth, lineu):
     global angulo
     global gData, u_m
 
-    if stop:
+    # Paramos el sistema si es que el número de ciclos llegó al límite o si es que se puso stop:
+    if Num_ciclos == -1 or not(stop):
+    
+        # Volvemos la referencia 0.
+        target = 0
+
+        # Apagamos el regulador electrónico
+        u = 0
+
+        # Lee la orientación del BNO055
+        orientacion = angulo
+
+        # Volvemos 0 tanto al error como la derivada del error:
+        error_medido = 0
+        derror_medido = 0
+ 
+        # Restauramos los valores iniciales:
+        t1 = tinicial
+        t2 = tsubida + t1
+        t3 = testatico + t2
+        t4 = tbajada + t3
+
+        # Actualizamos el t_inicial y reseteamos los otros tiempos: 
+        t_inicial = time.time()
+        t_anterior = time.time() - t_inicial
+
+    elif stop:
         lineth.set_data(range(len(gData[1])), gData[1])
         lineu.set_data(range(len(gData[1])), u_m)
 
@@ -145,6 +174,10 @@ def update_line(frame, lineth, lineu):
                 
             # Sumamos un ciclo:
             Num_ciclos = Num_ciclos + 1
+
+            # Si llegamos al último ciclo entonces "apagamos todo":
+            if Num_ciclos == Lim_ciclos:
+                Num_ciclos = -1
                 
 
         # Lee la orientación del BNO055
@@ -198,8 +231,8 @@ toggle_button.on_clicked(toggle_animation)
 # Función que se llama cuando se presiona la tecla "Enter" en el cuadro de texto
 def on_submit(text):
     # Convertir el valor ingresado a un número de punto flotante
-    global Num_ciclos
-    Num_ciclos = float(text)
+    global Lim_ciclos
+    Lim_ciclos = float(text)
 
     # Hacer algo con el valor ingresado, por ejemplo imprimirlo en la consola
     print(f"Valor ingresado: {Num_ciclos}")
