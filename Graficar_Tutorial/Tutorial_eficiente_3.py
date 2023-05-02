@@ -100,7 +100,9 @@ def on_message(client, userdata, message):
 # Se llama periódicamente desde el 'FuncAnimation'
 def update_line(frame, lineth, lineu, datath, datau):
 
-    global stop, integral, u, prev_error, target
+    global stop, u, error, prev_error, integral, derivativo, target
+    global t1, t2, t3, t4, t_inicial, tsubida, tbajada, ttotal
+    global Amin, Amax, Num_ciclos
 
     if stop:
         lineth.set_data(range(len(datath)), datath)
