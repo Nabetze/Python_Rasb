@@ -95,7 +95,6 @@ def on_message(client, userdata, message):
 
         #     gData[1].pop(0)
 
-print("Funciona hasta aca")
 
 # Función que actualizará los datos de la gráfica
 # Se llama periódicamente desde el 'FuncAnimation'
@@ -109,6 +108,8 @@ def update_line(frame, lineth, lineu, datath, datau):
     if stop:
         lineth.set_data(range(len(datath[1])), datath)
         lineu.set_data(range(len(datath[1])), datau)
+        print("Funciona hasta aca1")
+
     
         # t = time.time() - t_inicial #[s]
 
@@ -171,11 +172,16 @@ def update_line(frame, lineth, lineu, datath, datau):
         datath[1].append(angulo)
         datath[0].append(frame)
         datau.append(angulo+5)
+        print("Funciona hasta aca2")
+
 
         if len(datath[1]) > 200:
 
             datath[1].pop(0)
             datau.pop(0)
+
+        print("Funciona hasta aca3")
+
     
     return lineth, lineu
 
