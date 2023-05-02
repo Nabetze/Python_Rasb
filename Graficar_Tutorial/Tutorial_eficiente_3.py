@@ -176,7 +176,7 @@ def update_line(frame, lineth, lineu, datath, datau):
             datath[1].pop(0)
             datau.pop(0)
     
-    return lineth, lineu, datath, datau
+    return lineth, lineu
 
 # Creamos un botón para detener o iniciar la animación
 stop = False
