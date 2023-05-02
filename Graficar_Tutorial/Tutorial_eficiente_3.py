@@ -1,6 +1,7 @@
 # Si funciona, grafica a una buena velocidad sin problemas.
 # Tambien tiene un botón para iniciar o parar
-# Solamente grafica el angulo.
+# Tiene un bloque para enviar y recibir datos.
+# Solamente grafica el angulo y referencia.
 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
