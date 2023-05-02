@@ -95,6 +95,7 @@ def on_message(client, userdata, message):
 
         #     gData[1].pop(0)
 
+print("Funciona hasta aca")
 
 # Función que actualizará los datos de la gráfica
 # Se llama periódicamente desde el 'FuncAnimation'
