@@ -45,8 +45,13 @@ line_u, = axu.plot(gData[0], u_m)
 
 axth.set_xlabel('Muestras')
 axth.set_ylabel('Ángulo (grados)')
-axth.set_ylim(-90, 90)  
+axth.set_ylim(0, 90)  
 axth.set_xlim(0, 200)
+
+axu.set_xlabel('Muestras')
+axu.set_ylabel('Presion (kPa)')
+axu.set_ylim(0, 20)  
+axu.set_xlim(0, 200)
 
 # Voltaje máximo de entrada (medido en la Raspberry):
 Vol_rasp = 5.4  #Vol.
@@ -152,7 +157,7 @@ def update_line(frame, lineth, lineu, linet):
         u_m.append(u)
 
 
-        if len(gData[1]) > 200:
+        if len(gData[1]) > 400:
 
             gData[1].pop(0)
             t_m.pop(0)
@@ -161,6 +166,8 @@ def update_line(frame, lineth, lineu, linet):
         # Actualizamos el t_inicial y reseteamos los otros tiempos: 
         t_inicial = time.time()
         t_anterior = time.time() - t_inicial
+
+        print(u_m)
 
     elif stop:
         lineth.set_data(range(len(gData[1])), gData[1])
@@ -236,13 +243,13 @@ def update_line(frame, lineth, lineu, linet):
         u_m.append(u)
 
 
-        if len(gData[1]) > 200:
+        if len(gData[1]) > 400:
 
             gData[1].pop(0)
             t_m.pop(0)
             u_m.pop(0)
 
-
+        print(u_m)
     
     return lineth, lineu, linet
 
