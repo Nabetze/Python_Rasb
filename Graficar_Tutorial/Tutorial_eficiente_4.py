@@ -46,12 +46,12 @@ line_u, = axu.plot(gData[0], u_m)
 axth.set_xlabel('Muestras')
 axth.set_ylabel('Ángulo (grados)')
 axth.set_ylim(0, 90)  
-axth.set_xlim(0, 200)
+axth.set_xlim(0, 400)
 
 axu.set_xlabel('Muestras')
 axu.set_ylabel('Presion (kPa)')
 axu.set_ylim(0, 20)  
-axu.set_xlim(0, 200)
+axu.set_xlim(0, 400)
 
 # Voltaje máximo de entrada (medido en la Raspberry):
 Vol_rasp = 5.4  #Vol.
@@ -60,8 +60,8 @@ limite = 30.0  #[kPA], máxima presion en el regulador electronico.
 u = 0.0        #[kPa], valor inicial de la ley de control.
 
 # Configura las constantes del controlador PID
-kp = 0.01
-ki = 0.01
+kp = 0.05
+ki = 0
 kd = 0.0
 prev_error = 0.0
 integral = 0.0
@@ -167,7 +167,6 @@ def update_line(frame, lineth, lineu, linet):
         t_inicial = time.time()
         t_anterior = time.time() - t_inicial
 
-        print(u_m)
 
     elif stop:
         lineth.set_data(range(len(gData[1])), gData[1])
@@ -249,7 +248,6 @@ def update_line(frame, lineth, lineu, linet):
             t_m.pop(0)
             u_m.pop(0)
 
-        print(u_m)
     
     return lineth, lineu, linet
 
