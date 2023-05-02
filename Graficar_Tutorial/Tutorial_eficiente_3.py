@@ -98,17 +98,17 @@ def on_message(client, userdata, message):
 
 # Función que actualizará los datos de la gráfica
 # Se llama periódicamente desde el 'FuncAnimation'
-def update_line(frame, lineth, lineu, datath, datau):
+def update_line(frame, lineth, lineu):
 
     global stop, u, error, prev_error, integral, derivativo, target
     global t1, t2, t3, t4, t_inicial, tsubida, tbajada, ttotal
     global Amin, Amax, Num_ciclos
     global angulo
+    global gData, u_m
 
     if stop:
-        lineth.set_data(range(len(datath[1])), datath)
-        lineu.set_data(range(len(datath[1])), datau)
-        print("Funciona hasta aca1")
+        lineth.set_data(range(len(gData[1])), u_m)
+        lineu.set_data(range(len(gData[1])), u_m)
 
     
         # t = time.time() - t_inicial #[s]
@@ -169,18 +169,18 @@ def update_line(frame, lineth, lineu, datath, datau):
         # valor = int(5 * 65535 / Vol_rasp * u / limite)
 
         # Almacenamos los datos
-        datath[1].append(angulo)
-        datath[0].append(frame)
-        datau.append(angulo+5)
-        print("Funciona hasta aca2")
+        gData[1].append(angulo)
+        gData[0].append(frame)
+        u_m.append(angulo+5)
 
 
-        if len(datath[1]) > 200:
+        if len(gData[1]) > 200:
 
-            datath[1].pop(0)
-            datau.pop(0)
+            gData[1].pop(0)
+            u_m.pop(0)
 
-        print("Funciona hasta aca3")
+        print(gData)
+        print(u_m)
 
     
     return lineth, lineu
@@ -221,7 +221,7 @@ mqttClient.loop_start()
 # Tiempo inicial:
 t_inicial = time.time()
 # Configuramos la función que "animará" nuestra gráfica
-line_ani = animation.FuncAnimation(fig, update_line, fargs=(line_th, line_u, gData, u_m),
+line_ani = animation.FuncAnimation(fig, update_line, fargs=(line_th, line_u),
 interval=50, blit=True)
 
 # ---------------
