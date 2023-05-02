@@ -1,4 +1,6 @@
 # Si funciona, grafica a una buena velocidad sin problemas.
+# Tambien tiene un botón para iniciar o parar
+# Solamente grafica el angulo.
 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -7,6 +9,7 @@ import paho.mqtt.client as mqtt
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.widgets import Button
+from matplotlib.widgets import TextBox
 
 # Datos iniciales:
 gData = []
@@ -89,6 +92,20 @@ def toggle_animation(event):
 button_ax = plt.axes([0.7, 0.05, 0.2, 0.075])
 toggle_button = Button(button_ax, 'Start/Stop')
 toggle_button.on_clicked(toggle_animation)
+
+# Función que se llama cuando se presiona la tecla "Enter" en el cuadro de texto
+def on_submit(text):
+    # Convertir el valor ingresado a un número de punto flotante
+    valor = float(text)
+
+    # Hacer algo con el valor ingresado, por ejemplo imprimirlo en la consola
+    print(f"Valor ingresado: {valor}")
+
+# Crear un cuadro de texto en la posición (0.1, 0.9) de la figura
+cuadro_texto = TextBox(ax, "", initial="0", position=(0.1, 0.9))
+
+# Asociar la función on_submit al evento "submit" del cuadro de texto
+cuadro_texto.on_submit(on_submit)
 
 # Configuración del cliente MQTT
 mqttClient = mqtt.Client()
