@@ -102,7 +102,7 @@ def on_submit(text):
     print(f"Valor ingresado: {valor}")
 
 # Crear un cuadro de texto en la posición (0.1, 0.9) de la figura
-cuadro_texto = TextBox(ax, "", initial="0")
+cuadro_texto = TextBox(ax, "Ingresar", initial="0")
 
 # Asociar la función on_submit al evento "submit" del cuadro de texto
 cuadro_texto.on_submit(on_submit)
