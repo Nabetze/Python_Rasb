@@ -109,67 +109,67 @@ def update_line(frame, lineth, lineu, datath, datau):
         lineth.set_data(range(len(datath[1])), datath)
         lineu.set_data(range(len(datath[1])), datau)
     
-        t = time.time() - t_inicial #[s]
+        # t = time.time() - t_inicial #[s]
 
-        if t <= t1:
+        # if t <= t1:
                 
-            target = Amin
+        #     target = Amin
                 
-        elif t <= t2:
+        # elif t <= t2:
                 
-            a = (Amax - Amin)/(tsubida)
+        #     a = (Amax - Amin)/(tsubida)
                 
-            target = a*(t - t2) + Amax
+        #     target = a*(t - t2) + Amax
                 
-        elif t <= t3:
+        # elif t <= t3:
                 
-            target = Amax
+        #     target = Amax
                 
-        elif t <= t4:
+        # elif t <= t4:
                 
-            c = (Amin - Amax)/(tbajada)
+        #     c = (Amin - Amax)/(tbajada)
                 
-            target = c*(t - t3) + Amax
+        #     target = c*(t - t3) + Amax
                 
-        else:
+        # else:
                 
-            target = Amin
+        #     target = Amin
                 
-            # Actualizamos los límites:
-            t1 = t1 + ttotal
-            t2 = t2 + ttotal
-            t3 = t3 + ttotal
-            t4 = t4 + ttotal
+        #     # Actualizamos los límites:
+        #     t1 = t1 + ttotal
+        #     t2 = t2 + ttotal
+        #     t3 = t3 + ttotal
+        #     t4 = t4 + ttotal
                 
-            # Sumamos un ciclo:
-            Num_ciclos = Num_ciclos + 1
+        #     # Sumamos un ciclo:
+        #     Num_ciclos = Num_ciclos + 1
                 
 
-        # Lee la orientación del BNO055
-        orientacion = angulo
+        # # Lee la orientación del BNO055
+        # orientacion = angulo
 
-        # Convierte la orientación a un valor de error para el controlador PID
-        error = target - orientacion
+        # # Convierte la orientación a un valor de error para el controlador PID
+        # error = target - orientacion
 
-        # Calcula los términos proporcional, integral y derivativo del controlador PID
-        proporcional = kp * error
-        integral += ki * error
-        derivativo = kd * (error - prev_error) / 0.05
-        prev_error = error
+        # # Calcula los términos proporcional, integral y derivativo del controlador PID
+        # proporcional = kp * error
+        # integral += ki * error
+        # derivativo = kd * (error - prev_error) / 0.05
+        # prev_error = error
 
-        # Calcula el valor de salida del controlador PID [kPa]
-        u = proporcional + integral + derivativo
+        # # Calcula el valor de salida del controlador PID [kPa]
+        # u = proporcional + integral + derivativo
 
-        # Limita la salida a los límites del regulador electrónico (0-[limite])
-        u = min(max(u, 0), limite)
+        # # Limita la salida a los límites del regulador electrónico (0-[limite])
+        # u = min(max(u, 0), limite)
 
-        # Convierte el voltaje a un valor de 12 bits para el MCP4725
-        valor = int(5 * 65535 / Vol_rasp * u / limite)
+        # # Convierte el voltaje a un valor de 12 bits para el MCP4725
+        # valor = int(5 * 65535 / Vol_rasp * u / limite)
 
         # Almacenamos los datos
         datath[1].append(angulo)
         datath[0].append(frame)
-        datau.append(u)
+        datau.append(angulo+5)
 
         if len(datath[1]) > 200:
 
