@@ -2,6 +2,8 @@
 # Tambien tiene un botón para iniciar o parar
 # Tiene un bloque para enviar y recibir datos.
 # Solamente grafica el angulo y referencia.
+# Puedes ingresar el tiempo de subida, bajada
+# Puedes ver la dey de control también
 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -34,8 +36,9 @@ fig = plt.figure(figsize=(5.11, 2.75))
 gs = GridSpec(4, 2, figure=fig, width_ratios=[1, 4])
 
 axth = plt.subplot(gs[0:2, 1])
+axth.grid(True)
 axu  = plt.subplot(gs[2:4, 1])
-plt.grid(True)
+axu.grid(True)
 
 
 # Variables para almacenar los datos recibidos 
