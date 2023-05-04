@@ -160,6 +160,8 @@ def update_line(frame, lineth, lineu, linet):
         t_m.append(target)
         u_m.append(u)
 
+        mqttClient.publish("datos/u", u)
+
 
         if len(gData[1]) > 400:
 
