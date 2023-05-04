@@ -9,8 +9,8 @@ MQTT_TOPIC = "datos/u"
 # Configuración del cliente MQTT
 mqttClient = mqtt.Client()
 mqttClient.connect(MQTT_BROKER, 1883)
-mqttClient.subscribe(MQTT_TOPIC)
-mqttClient.loop_start()
+#mqttClient.subscribe(MQTT_TOPIC)
+#mqttClient.loop_start()
 
 # Publica el valor decimal en el tópico "miTopico"
 valor_decimal = 1.23
