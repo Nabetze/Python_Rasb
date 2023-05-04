@@ -190,7 +190,7 @@ def update_line(frame, lineth, lineu, linet):
                 
             a = (Amax - Amin)/(tsubida)
                 
-            target = a*(t - t2) + Amax
+            target = round(a*(t - t2) + Amax, 2)
                 
         elif t <= t3:
                 
@@ -200,7 +200,7 @@ def update_line(frame, lineth, lineu, linet):
                 
             c = (Amin - Amax)/(tbajada)
                 
-            target = c*(t - t3) + Amax
+            target = round(c*(t - t3) + Amax, 2)
                 
         else:
                 
@@ -224,16 +224,16 @@ def update_line(frame, lineth, lineu, linet):
         orientacion = angulo
 
         # Convierte la orientación a un valor de error para el controlador PID
-        error = target - orientacion
+        error = round(target - orientacion, 2)
 
         # Calcula los términos proporcional, integral y derivativo del controlador PID
-        proporcional = kp * error
-        integral += ki * error
-        derivativo = kd * (error - prev_error) / 0.05
-        prev_error = error
+        proporcional = round(kp * error,2)
+        integral = round(integral + ki * error, 2)
+        derivativo = round(kd * (error - prev_error) / 0.05, 2)
+        prev_error = round(error, 2)
 
         # Calcula el valor de salida del controlador PID [kPa]
-        u = proporcional + integral + derivativo
+        u = round(proporcional + integral + derivativo, 2)
 
         # Limita la salida a los límites del regulador electrónico (0-[limite])
         u = min(max(u, 0), limite)
