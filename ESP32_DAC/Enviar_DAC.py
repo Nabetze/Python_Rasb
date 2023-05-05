@@ -12,9 +12,10 @@ mqttClient.connect(MQTT_BROKER, 1883)
 #mqttClient.subscribe(MQTT_TOPIC)
 #mqttClient.loop_start()
 
+while (1):
 # Publica el valor decimal en el tópico "miTopico"
-valor_decimal = 0
-mqttClient.publish(MQTT_TOPIC, valor_decimal)
+    valor_decimal = input("Ingresa el valor de presion: ")
+    mqttClient.publish(MQTT_TOPIC, valor_decimal)
 
 # Desconecta del servidor MQTT
-mqttClient.disconnect()
+#mqttClient.disconnect()
