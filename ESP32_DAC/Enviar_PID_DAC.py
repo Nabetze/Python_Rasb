@@ -64,7 +64,7 @@ limite = 30.0  #[kPA], máxima presion en el regulador electronico.
 u = 0.0        #[kPa], valor inicial de la ley de control.
 
 # Configura las constantes del controlador PID
-kp = 0.05
+kp = 0.1
 ki = 0
 kd = 0.0
 prev_error = 0.0
