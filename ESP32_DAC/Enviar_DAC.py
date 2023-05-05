@@ -13,7 +13,7 @@ mqttClient.connect(MQTT_BROKER, 1883)
 #mqttClient.loop_start()
 
 # Publica el valor decimal en el tópico "miTopico"
-valor_decimal = 5
+valor_decimal = 0
 mqttClient.publish(MQTT_TOPIC, valor_decimal)
 
 # Desconecta del servidor MQTT
