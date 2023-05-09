@@ -28,6 +28,8 @@ class Trapezoidal_Reference:
 
         self.Lim_ciclos = 0
 
+        self.ttotal = self.tsubida + self.tbajada + self.testatico + self.tinicial
+
     def Update_angle_limits (self, Max, Min):
         # Limit in degrees
         self.Amax = Max
