@@ -87,6 +87,9 @@ def on_message(client, userdata, message):
 # Se llama periódicamente desde el 'FuncAnimation'
 def update_line(frame, lineth, lineu, linet):
 
+    # Variables globales:
+    global actual_angle, t_anterior, t_inicial
+
     # Paramos el sistema si es que el número de ciclos llegó al límite o si es que se puso stop:
     if reference.Num_ciclos == -1 or not(stop):
 
