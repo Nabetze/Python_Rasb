@@ -4,6 +4,8 @@
 # Solamente grafica el angulo y referencia.
 # Puedes ingresar el tiempo de subida, bajada
 # Puedes ver la dey de control también
+# Envia a la DAC el valor de presion.
+# El problema es que realiza el control en el mismo codigo.
 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
