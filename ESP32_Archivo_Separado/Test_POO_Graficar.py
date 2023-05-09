@@ -197,7 +197,7 @@ def Lim_Ciclos_submit(text, reference):
 cuadro_texto_Lim_Ciclos = TextBox(fig.add_subplot(gs[1, 0]), "Num Ciclos", initial="0")
 
 # Asociar la función on_submit al evento "submit" del cuadro de texto
-cuadro_texto_Lim_Ciclos.on_submit(Lim_Ciclos_submit, reference)
+cuadro_texto_Lim_Ciclos.on_submit(Lim_Ciclos_submit(reference))
 
 
 # Función que se llama cuando se presiona la tecla "Enter" en el cuadro de texto
