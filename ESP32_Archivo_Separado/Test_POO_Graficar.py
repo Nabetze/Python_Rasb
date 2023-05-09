@@ -159,6 +159,9 @@ def update_line(frame, lineth, lineu, linet):
 
 # Main:
 PID_1 = PID("Pierna_Izquierda")
+
+global reference
+
 reference = Trapezoidal_Reference("Referencia")
 
 # Configuración del cliente MQTT
@@ -182,7 +185,8 @@ toggle_button = Button(button_ax, 'Start/Stop')
 toggle_button.on_clicked(toggle_animation)
 
 # Función que se llama cuando se presiona la tecla "Enter" en el cuadro de texto
-def Lim_Ciclos_submit(text, reference):
+def Lim_Ciclos_submit(text):
+
 
     # Guardamos lo que recibimos
     reference.Lim_ciclos = float(text)
@@ -197,7 +201,7 @@ def Lim_Ciclos_submit(text, reference):
 cuadro_texto_Lim_Ciclos = TextBox(fig.add_subplot(gs[1, 0]), "Num Ciclos", initial="0")
 
 # Asociar la función on_submit al evento "submit" del cuadro de texto
-cuadro_texto_Lim_Ciclos.on_submit(Lim_Ciclos_submit(reference))
+cuadro_texto_Lim_Ciclos.on_submit(Lim_Ciclos_submit)
 
 
 # Función que se llama cuando se presiona la tecla "Enter" en el cuadro de texto
