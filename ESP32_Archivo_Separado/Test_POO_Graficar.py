@@ -140,9 +140,12 @@ def update_line(frame, lineth, lineu, linet):
         t = time.time() - t_inicial #[s]
 
         target = reference.Compute_target(t)
+
+        # Lee la orientación del BNO055
+        orientacion = actual_angle
                 
         # We compute the pressuare value using PID.
-        PID_1.Calculate_u (actual_angle, target)
+        PID_1.Calculate_u (orientacion, target)
 
         # Sending the pressuare value to the DAC.
         PID_1.Send_u (PID_1.u, "datos/u", mqttClient)
