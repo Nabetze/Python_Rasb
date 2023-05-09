@@ -101,6 +101,9 @@ def update_line(frame, lineth, lineu, linet):
         # Lee la orientación del BNO055
         orientacion = actual_angle
 
+        # We don't have target:
+        target = 0
+
         # Restauramos los valores iniciales:
         reference.Restart_points_of_time()
 
