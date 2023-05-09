@@ -15,7 +15,7 @@ class Trapezoidal_Reference:
 
         # Default angle limits:
         self.Amax = 60
-        self.Amin = 50
+        self.Amin = 10
 
         # Points of time:
         self.t1 = self.tinicial
