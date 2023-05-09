@@ -8,7 +8,7 @@ class PID:
         self.name = name
 
         # Inicializamos las ganancias del PID
-        self.Kp = 0
+        self.Kp = 0.5
         self.Ki = 0
         self.Kd = 0
        
