@@ -78,7 +78,14 @@ class Trapezoidal_Reference:
         self.t3 = self.t3 + self.ttotal
         self.t4 = self.t4 + self.ttotal
 
+    def Activade_servo (self, pos, topic, mqttClient):
+
+        # Send by MQTT protocol.
+        mqttClient.publish(topic, pos)
+
     def Compute_target(self, time):
+
+        Change = False
 
         # Lower part:
         if time <= self.t1:
@@ -115,8 +122,11 @@ class Trapezoidal_Reference:
             # Sumamos un ciclo:
             self.Num_ciclos += 1
 
+            # Telling to change:
+            Change = True
+
             # Si llegamos al último ciclo entonces "apagamos todo":
             if self.Num_ciclos == self.Lim_ciclos:
                 self.Num_ciclos = -1
 
-        return target
+        return target, Change

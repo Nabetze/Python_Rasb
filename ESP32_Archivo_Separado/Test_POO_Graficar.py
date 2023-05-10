@@ -40,7 +40,9 @@ u_m.append(0)
 
 # Configuración del cliente MQTT
 MQTT_BROKER = "10.100.239.29" #"192.168.18.42" 
-MQTT_TOPIC = "datos/bno055"
+MQTT_TOPIC_U = "datos/bno055"
+MQTT_TOPIC_Servo = "datos/servo"
+
 
 #Configuramos la gráfica
 fig = plt.figure(figsize=(5.11, 2.75))
@@ -71,6 +73,9 @@ axu.set_xlim(0, 400)
 
 actual_angle = 0
 
+# Sermotor's angle of rotation:
+beta = 0
+
 # Función que se ejecuta cuando se recibe un mensaje MQTT
 def on_message(client, userdata, message):
 
@@ -88,7 +93,7 @@ def on_message(client, userdata, message):
 def update_line(frame, lineth, lineu, linet):
 
     # Variables globales:
-    global actual_angle, t_anterior, t_inicial
+    global actual_angle, t_anterior, t_inicial, beta
 
     # Paramos el sistema si es que el número de ciclos llegó al límite o si es que se puso stop:
     if reference.Num_ciclos == -1 or not(stop):
@@ -139,7 +144,7 @@ def update_line(frame, lineth, lineu, linet):
     
         t = time.time() - t_inicial #[s]
 
-        target = reference.Compute_target(t)
+        target, change = reference.Compute_target(t)
 
         # Lee la orientación del BNO055
         orientacion = actual_angle
@@ -156,6 +161,23 @@ def update_line(frame, lineth, lineu, linet):
         t_m.append(target)
         u_m.append(PID_1.u)
 
+        # If we are in an even cicle it means that we need to change of legh:
+        if change:
+
+            #If beta = 0 means that we are in the first leg:
+            if beta == 0:
+
+                # Change the value:
+                beta = 180
+
+            # Otherwise, we are in te second leg:
+            else:
+                beta = 0
+
+            # Move servo Beta angle:
+            reference.Activade_servo(beta, "datos/servo" , mqttClient)
+
+            change = False
 
         if len(angle_m) > 400:
 
@@ -177,7 +199,7 @@ reference = Trapezoidal_Reference("Referencia")
 mqttClient = mqtt.Client()
 mqttClient.on_message = on_message
 mqttClient.connect(MQTT_BROKER, 1883)
-mqttClient.subscribe(MQTT_TOPIC)
+mqttClient.subscribe(MQTT_TOPIC_U)
 mqttClient.loop_start()
 
 
@@ -251,6 +273,9 @@ cuadro_texto_tbajada.on_submit(Tb_submit)
 # Tiempo inicial:
 t_inicial = time.time()
 t_anterior = time.time() - t_inicial
+
+# We go to the inicial position of the Servo motor:
+reference.Activade_servo(0, "datos/servo" , mqttClient)
 
 # Configuramos la función que "animará" nuestra gráfica
 line_ani = animation.FuncAnimation(fig, update_line, fargs=(line_th, line_u, line_t),
