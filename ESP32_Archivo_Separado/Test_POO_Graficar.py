@@ -179,7 +179,7 @@ def update_line(frame, lineth, lineu, linet):
                 beta = 0
 
             # Move servo Beta angle:
-            reference.Activade_servo(beta, MQTT_TOPIC_Servo , mqttClient)
+            reference.Activade_servo(beta, "datos/servo" , mqttClient)
 
             change = False
 
@@ -279,7 +279,7 @@ t_inicial = time.time()
 t_anterior = time.time() - t_inicial
 
 # We go to the inicial position of the Servo motor:
-reference.Activade_servo(0, MQTT_TOPIC_Servo , mqttClient)
+reference.Activade_servo(0, "datos/servo" , mqttClient)
 
 # Configuramos la función que "animará" nuestra gráfica
 line_ani = animation.FuncAnimation(fig, update_line, fargs=(line_th, line_u, line_t),
