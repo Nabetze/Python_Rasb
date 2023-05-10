@@ -44,7 +44,7 @@ u_m.append(0)
 # Datos: "192.168.43.101"
 
 MQTT_BROKER = "192.168.43.101"
-MQTT_TOPIC_U = "datos/bno055"
+MQTT_TOPIC_Theta1 = "datos/bno055"
 MQTT_TOPIC_Servo = "datos/servo"
 
 
@@ -179,7 +179,7 @@ def update_line(frame, lineth, lineu, linet):
                 beta = 0
 
             # Move servo Beta angle:
-            reference.Activade_servo(beta, "datos/servo" , mqttClient)
+            reference.Activade_servo(beta, MQTT_TOPIC_Servo , mqttClient)
 
             change = False
 
@@ -203,7 +203,7 @@ reference = Trapezoidal_Reference("Referencia")
 mqttClient = mqtt.Client()
 mqttClient.on_message = on_message
 mqttClient.connect(MQTT_BROKER, 1883)
-mqttClient.subscribe(MQTT_TOPIC_U)
+mqttClient.subscribe(MQTT_TOPIC_Theta1)
 mqttClient.loop_start()
 
 
@@ -279,7 +279,7 @@ t_inicial = time.time()
 t_anterior = time.time() - t_inicial
 
 # We go to the inicial position of the Servo motor:
-reference.Activade_servo(0, "datos/servo" , mqttClient)
+reference.Activade_servo(0, MQTT_TOPIC_Servo , mqttClient)
 
 # Configuramos la función que "animará" nuestra gráfica
 line_ani = animation.FuncAnimation(fig, update_line, fargs=(line_th, line_u, line_t),
