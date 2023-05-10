@@ -122,6 +122,7 @@ while(1):
 
         # Enviamos los datos a otro archivo.
         os.write(pipe_write, f"{orientacion},{target},{PID_1.u}\n".encode())
+        print(orientacion)
 
         # If we are in an even cicle it means that we need to change of legh:
         if change:
