@@ -143,5 +143,7 @@ while(1):
 
             change = False
 
+    time.sleep(0.1)
+
 
 
