@@ -27,11 +27,11 @@ pipe_out, pipe_in = os.pipe()
 # Datos iniciales:
 
 # Configuración del cliente MQTT
-# Utec_Alumno: "10.100.239.29"
+# Utec_Alumno: "10.100.239.161"
 # Casa: "192.168.18.42"
 # Datos: "192.168.43.101"
 
-MQTT_BROKER = "10.100.239.29"
+MQTT_BROKER = "10.100.239.161"
 MQTT_TOPIC_Theta1 = "datos/bno055"
 MQTT_TOPIC_Servo = "datos/servo"
 MQTT_TOPIC_U = "datos/u"
