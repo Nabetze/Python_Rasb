@@ -39,7 +39,11 @@ u_m = []
 u_m.append(0)
 
 # Configuración del cliente MQTT
-MQTT_BROKER = "10.100.239.29" #"192.168.18.42" 
+# Utec_Alumno: "10.100.239.29"
+# Casa: "192.168.18.42"
+# Datos: "192.168.43.101"
+
+MQTT_BROKER = "192.168.43.101"
 MQTT_TOPIC_U = "datos/bno055"
 MQTT_TOPIC_Servo = "datos/servo"
 
