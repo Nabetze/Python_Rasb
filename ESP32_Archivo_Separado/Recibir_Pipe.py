@@ -1,12 +1,14 @@
 import os
 
 # Crear una tubería
-pipe_in, pipe_out = os.pipe()
+pipe_read, pipe_write = os.pipe()
 
 while True:
         # Leer los valores de la tubería
-        data = os.read(pipe_in, 1024).decode()
+        data = os.read(pipe_read, 1024).decode()
         if data:
             # Separar los valores de la curva de referencia y del valor medido
-            setpoint, valor_medido, valor_control = map(float, data.strip().split(","))
+            orientacion, target, u = map(float, data.strip().split(","))
+
+            print()
             
