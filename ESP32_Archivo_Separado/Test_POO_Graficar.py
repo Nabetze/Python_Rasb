@@ -43,7 +43,7 @@ u_m.append(0)
 # Casa: "192.168.18.42"
 # Datos: "192.168.43.101"
 
-MQTT_BROKER = "192.168.43.101"
+MQTT_BROKER = "10.100.239.161"
 MQTT_TOPIC_Theta1 = "datos/bno055"
 MQTT_TOPIC_Servo = "datos/servo"
 
