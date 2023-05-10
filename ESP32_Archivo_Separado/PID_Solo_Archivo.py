@@ -36,7 +36,7 @@ MQTT_TOPIC_Theta1 = "datos/bno055"
 MQTT_TOPIC_Servo = "datos/servo"
 MQTT_TOPIC_U = "datos/u"
 
-stop = False
+stop = True
 actual_angle = 0
 change = False
 
