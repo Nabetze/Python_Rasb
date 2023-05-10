@@ -96,6 +96,7 @@ while(1):
 
         # Enviamos los datos a otro archivo.
         os.write(pipe_write, f"{orientacion},{target},{PID_1.u}\n".encode())
+        print(orientacion)
 
         # Sending the pressuare value to the DAC.
         PID_1.Send_u (PID_1.u, MQTT_TOPIC_U, mqttClient)
