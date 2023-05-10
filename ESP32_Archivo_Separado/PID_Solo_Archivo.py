@@ -22,7 +22,7 @@ from Trapezoidal_Reference import Trapezoidal_Reference
 import os
 
 # Crear una tubería
-pipe_out, pipe_in = os.pipe()
+pipe_read, pipe_write = os.pipe()
 
 # Datos iniciales:
 
@@ -95,7 +95,7 @@ while(1):
         reference.Restart_points_of_time()
 
         # Enviamos los datos a otro archivo.
-        os.write(pipe_out, f"{orientacion},{target},{PID_1.u}\n".encode())
+        os.write(pipe_write, f"{orientacion},{target},{PID_1.u}\n".encode())
 
         # Sending the pressuare value to the DAC.
         PID_1.Send_u (PID_1.u, MQTT_TOPIC_U, mqttClient)
@@ -121,7 +121,7 @@ while(1):
         PID_1.Send_u (PID_1.u, MQTT_TOPIC_U, mqttClient)
 
         # Enviamos los datos a otro archivo.
-        os.write(pipe_out, f"{orientacion},{target},{PID_1.u}\n".encode())
+        os.write(pipe_write, f"{orientacion},{target},{PID_1.u}\n".encode())
 
         # If we are in an even cicle it means that we need to change of legh:
         if change:
